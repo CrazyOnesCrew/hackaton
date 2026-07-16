@@ -34,6 +34,16 @@ export async function requireAdmin(): Promise<RailsUser> {
   return user;
 }
 
+/** Content manager area: `auxiliary` or `admin`. */
+export async function requireContentManager(): Promise<RailsUser> {
+  const user = await getCurrentUser();
+  if (!user) throw new Response("Unauthorized", { status: 401 });
+  if (user.role !== "admin" && user.role !== "auxiliary") {
+    throw new Response("Forbidden", { status: 403 });
+  }
+  return user;
+}
+
 /**
  * Same guard as `requireAdmin()`, but also returns the session token — use it
  * in admin-only Route Handlers that call `rails.ts` with the bearer token

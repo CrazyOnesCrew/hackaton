@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { SESSION_ROLE_COOKIE, SESSION_TOKEN_COOKIE } from "@/lib/session-cookies";
 
-// Allowed roles per protected area prefix. `/dashboard` is open to any
-// authenticated user; `/admin` demonstrates an admin-only area.
+// Allowed roles per protected area prefix.
 const AREA_RULES: { prefix: string; roles: Set<string> }[] = [
-  { prefix: "/dashboard", roles: new Set(["admin", "member"]) },
+  { prefix: "/dashboard", roles: new Set(["admin", "member", "auxiliary"]) },
+  { prefix: "/content", roles: new Set(["admin", "auxiliary"]) },
   { prefix: "/admin", roles: new Set(["admin"]) },
 ];
 
@@ -39,5 +39,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/admin/:path*"],
+  matcher: ["/dashboard/:path*", "/content/:path*", "/admin/:path*"],
 };

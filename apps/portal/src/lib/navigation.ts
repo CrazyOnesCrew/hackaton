@@ -1,4 +1,4 @@
-export type PortalRole = "admin" | "member";
+export type PortalRole = "admin" | "member" | "auxiliary";
 
 export type NavEntry = {
   label: string;
@@ -6,20 +6,32 @@ export type NavEntry = {
   roles: PortalRole[];
 };
 
-// Generic nav entries. `/dashboard` is available to any authenticated user;
-// `/admin` demonstrates an admin-only area. Add your own entries here.
+const CONTENT_ROLES: PortalRole[] = ["admin", "auxiliary"];
+
+// `/dashboard` is available to any authenticated portal role.
+// `/content/*` is the PAAG content manager (auxiliary + admin).
+// `/admin` remains admin-only.
 export const NAV_ENTRIES: NavEntry[] = [
-  { label: "Dashboard", href: "/dashboard", roles: ["admin", "member"] },
+  { label: "Dashboard", href: "/dashboard", roles: ["admin", "member", "auxiliary"] },
+  { label: "Contenido", href: "/content", roles: CONTENT_ROLES },
+  { label: "Ejercicios", href: "/content/exercises", roles: CONTENT_ROLES },
+  { label: "Importaciones", href: "/content/imports", roles: CONTENT_ROLES },
+  { label: "Calificaciones", href: "/content/grades", roles: CONTENT_ROLES },
   { label: "Admin", href: "/admin", roles: ["admin"] },
 ];
 
 export const ROLE_LABELS: Record<PortalRole, string> = {
   admin: "Admin",
-  member: "Member",
+  member: "Miembro",
+  auxiliary: "Auxiliar",
 };
 
 export function isPortalRole(role: string | null | undefined): role is PortalRole {
-  return role === "admin" || role === "member";
+  return role === "admin" || role === "member" || role === "auxiliary";
+}
+
+export function isContentManager(role: string | null | undefined): boolean {
+  return role === "admin" || role === "auxiliary";
 }
 
 export function entriesFor(role: PortalRole): NavEntry[] {
@@ -27,7 +39,6 @@ export function entriesFor(role: PortalRole): NavEntry[] {
 }
 
 export function roleHome(role: PortalRole): string {
-  // All roles currently land on the dashboard; branch here to add
-  // role-specific home routes.
-  return role === "admin" ? "/dashboard" : "/dashboard";
+  if (role === "auxiliary") return "/content";
+  return "/dashboard";
 }

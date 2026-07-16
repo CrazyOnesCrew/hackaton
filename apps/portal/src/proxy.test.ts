@@ -37,9 +37,58 @@ describe("proxy /dashboard protection (any authenticated role)", () => {
     expect(response.status).toBe(200);
   });
 
+  it("allows an auxiliary session through to /dashboard", () => {
+    const response = proxy(
+      requestFor("/dashboard", {
+        [SESSION_TOKEN_COOKIE]: "sess_abc",
+        [SESSION_ROLE_COOKIE]: "auxiliary",
+      }),
+    );
+    expect(response.status).toBe(200);
+  });
+
   it("allows an admin session through to /dashboard", () => {
     const response = proxy(
       requestFor("/dashboard", {
+        [SESSION_TOKEN_COOKIE]: "sess_abc",
+        [SESSION_ROLE_COOKIE]: "admin",
+      }),
+    );
+    expect(response.status).toBe(200);
+  });
+});
+
+describe("proxy /content protection (auxiliary + admin)", () => {
+  it("redirects unauthenticated visitors away from /content", () => {
+    const response = proxy(requestFor("/content"));
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toContain("/login");
+  });
+
+  it("redirects a member session on /content to /access-denied", () => {
+    const response = proxy(
+      requestFor("/content", {
+        [SESSION_TOKEN_COOKIE]: "sess_abc",
+        [SESSION_ROLE_COOKIE]: "member",
+      }),
+    );
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toContain("/access-denied");
+  });
+
+  it("allows an auxiliary session through to /content/exercises", () => {
+    const response = proxy(
+      requestFor("/content/exercises", {
+        [SESSION_TOKEN_COOKIE]: "sess_abc",
+        [SESSION_ROLE_COOKIE]: "auxiliary",
+      }),
+    );
+    expect(response.status).toBe(200);
+  });
+
+  it("allows an admin session through to /content", () => {
+    const response = proxy(
+      requestFor("/content", {
         [SESSION_TOKEN_COOKIE]: "sess_abc",
         [SESSION_ROLE_COOKIE]: "admin",
       }),
@@ -61,6 +110,17 @@ describe("proxy /admin protection (admin-only)", () => {
       requestFor("/admin", {
         [SESSION_TOKEN_COOKIE]: "sess_abc",
         [SESSION_ROLE_COOKIE]: "member",
+      }),
+    );
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toContain("/access-denied");
+  });
+
+  it("redirects an auxiliary session on /admin to /access-denied", () => {
+    const response = proxy(
+      requestFor("/admin", {
+        [SESSION_TOKEN_COOKIE]: "sess_abc",
+        [SESSION_ROLE_COOKIE]: "auxiliary",
       }),
     );
     expect(response.status).toBe(307);

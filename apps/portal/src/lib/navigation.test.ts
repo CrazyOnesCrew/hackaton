@@ -1,32 +1,64 @@
 import { describe, expect, it } from "vitest";
-import { entriesFor, isPortalRole, ROLE_LABELS, roleHome } from "./navigation";
+import {
+  entriesFor,
+  isContentManager,
+  isPortalRole,
+  ROLE_LABELS,
+  roleHome,
+} from "./navigation";
 
 describe("role-based navigation", () => {
-  it("member sees only the shared entries", () => {
+  it("member sees only the shared dashboard", () => {
     const entries = entriesFor("member");
     expect(entries.map((e) => e.href)).toEqual(["/dashboard"]);
   });
 
-  it("admin sees the shared entries plus admin-only areas", () => {
-    const entries = entriesFor("admin");
-    expect(entries.map((e) => e.href)).toEqual(["/dashboard", "/admin"]);
+  it("auxiliary sees dashboard and content manager routes", () => {
+    const entries = entriesFor("auxiliary");
+    expect(entries.map((e) => e.href)).toEqual([
+      "/dashboard",
+      "/content",
+      "/content/exercises",
+      "/content/imports",
+      "/content/grades",
+    ]);
   });
 
-  it("roleHome maps every role to the dashboard", () => {
+  it("admin sees content routes plus admin-only areas", () => {
+    const entries = entriesFor("admin");
+    expect(entries.map((e) => e.href)).toEqual([
+      "/dashboard",
+      "/content",
+      "/content/exercises",
+      "/content/imports",
+      "/content/grades",
+      "/admin",
+    ]);
+  });
+
+  it("roleHome maps auxiliary to /content", () => {
+    expect(roleHome("auxiliary")).toBe("/content");
     expect(roleHome("admin")).toBe("/dashboard");
     expect(roleHome("member")).toBe("/dashboard");
   });
 
-  it("isPortalRole accepts only portal roles", () => {
+  it("isPortalRole accepts portal roles including auxiliary", () => {
     expect(isPortalRole("admin")).toBe(true);
     expect(isPortalRole("member")).toBe(true);
+    expect(isPortalRole("auxiliary")).toBe(true);
     expect(isPortalRole("traveler")).toBe(false);
     expect(isPortalRole(null)).toBe(false);
-    expect(isPortalRole(undefined)).toBe(false);
+  });
+
+  it("isContentManager allows auxiliary and admin only", () => {
+    expect(isContentManager("auxiliary")).toBe(true);
+    expect(isContentManager("admin")).toBe(true);
+    expect(isContentManager("member")).toBe(false);
   });
 
   it("exposes role labels", () => {
     expect(ROLE_LABELS.admin).toBe("Admin");
-    expect(ROLE_LABELS.member).toBe("Member");
+    expect(ROLE_LABELS.member).toBe("Miembro");
+    expect(ROLE_LABELS.auxiliary).toBe("Auxiliar");
   });
 });

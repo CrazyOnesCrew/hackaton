@@ -32,10 +32,8 @@ export default function LoginScreen() {
         return;
       }
 
-      const role: unknown = body?.data?.user?.role;
-      const fallback = isPortalRole(typeof role === "string" ? role : null)
-        ? roleHome(role as "admin" | "member")
-        : "/dashboard";
+      const role = body?.data?.user?.role;
+      const fallback = isPortalRole(role) ? roleHome(role) : "/dashboard";
       const redirectTo = searchParams.get("from") ?? fallback;
       router.replace(redirectTo);
       router.refresh();

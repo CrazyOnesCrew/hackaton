@@ -4,6 +4,12 @@ All notable changes to the portal are documented here (Keep a Changelog format).
 The in-app "What's new" modal is driven by `src/lib/changelog.ts`; keep both in
 sync with `package.json`'s version.
 
+## [1.1.0] - 2026-07-16
+
+### Added
+- Rol `auxiliary` y gestor de contenidos (`/content`) con dashboard mock/real
+  conmutable vía `NEXT_PUBLIC_USE_MOCK_API`.
+
 ## [1.0.0] - 2026-07-13
 
 ### Added

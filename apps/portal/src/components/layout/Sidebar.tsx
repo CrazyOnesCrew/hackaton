@@ -7,6 +7,7 @@ import {
   LayoutGrid, Package, ShoppingCart, DollarSign, Users, FileText,
   RefreshCw, CreditCard, Settings, HelpCircle, Moon,
   ChevronDown, PanelLeftClose, PanelLeftOpen, X,
+  BookOpen, Upload, GraduationCap, Layers,
 } from "lucide-react";
 import type { NavItem, NavSection } from "@/lib/constants";
 import { entriesFor, isPortalRole } from "@/lib/navigation";
@@ -17,13 +18,18 @@ import VersionWidget from "./VersionWidget";
 
 const ICON_BY_HREF: Record<string, string> = {
   "/dashboard": "dashboard",
+  "/content": "content",
+  "/content/exercises": "exercises",
+  "/content/imports": "imports",
+  "/content/grades": "grades",
   "/admin": "settings",
 };
 
 const ICONS = {
   dashboard: LayoutGrid, products: Package, orders: ShoppingCart, sales: DollarSign,
   customers: Users, reports: FileText, sync: RefreshCw, payments: CreditCard,
-  settings: Settings, help: HelpCircle,
+  settings: Settings, help: HelpCircle, content: Layers, exercises: BookOpen,
+  imports: Upload, grades: GraduationCap,
 } as const;
 
 const ACCENT = "var(--color-primary)";
