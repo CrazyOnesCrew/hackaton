@@ -1,0 +1,54 @@
+# syntax=docker/dockerfile:1
+
+# Development-only image for the Rails API. Production uses the separate
+# ./Dockerfile (Kamal/Thruster, non-root, RAILS_ENV=production) — this file
+# never touches that image. Here we optimize for a fast local loop on Docker
+# Desktop / WSL2: all gem groups installed, code bind-mounted, gems in a
+# named volume, and the lockfile writable so `bundle add` works.
+
+# Keep in sync with apps/api/.ruby-version.
+ARG RUBY_VERSION=3.4.9
+FROM docker.io/library/ruby:${RUBY_VERSION}-slim
+
+# Match the production image's WORKDIR so bin/ scripts and paths behave the same.
+WORKDIR /rails
+
+# System packages:
+# - build-essential, pkg-config, libyaml-dev, git: build native gems (e.g. psych, bootsnap)
+# - libpq-dev, postgresql-client: pg gem + pg_isready/psql for the entrypoint and debugging
+# - libvips: required by the image_processing gem (Active Storage variants)
+# - curl: used by the compose healthcheck against /up
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      build-essential \
+      curl \
+      git \
+      libpq-dev \
+      libvips \
+      libyaml-dev \
+      pkg-config \
+      postgresql-client && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+# Gems are installed into this path, which compose mounts as a named volume so
+# they persist across rebuilds and never leak onto the Windows host filesystem.
+# BUNDLE_DEPLOYMENT is intentionally NOT set so `bundle add` can update the lockfile.
+ENV BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_JOBS="4" \
+    BUNDLE_RETRY="3"
+
+# Install gems first for layer caching. When the named bundle volume is empty
+# (first run) these gems are already present in the image; when a developer runs
+# `bundle install` later, results are written to the mounted volume.
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+# The application code is bind-mounted by docker-compose at runtime, so we do not
+# COPY it here — edits on the host are picked up live (hot reload).
+COPY bin/docker-entrypoint-dev /usr/local/bin/docker-entrypoint-dev
+RUN chmod +x /usr/local/bin/docker-entrypoint-dev
+
+EXPOSE 3000
+
+ENTRYPOINT ["docker-entrypoint-dev"]
+CMD ["bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]

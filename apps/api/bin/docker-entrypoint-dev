@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Development container entrypoint. Kept separate from bin/docker-entrypoint
+# (the production one) so neither degrades the other.
+set -euo pipefail
+
+# Puma refuses to boot if a stale PID file survives an unclean shutdown
+# (common after `docker compose down` mid-request). Remove it defensively.
+rm -f ./tmp/pids/server.pid
+
+# Prepare the database unless another service already owns that step.
+# The `api` service runs db:prepare; the `worker` sets SKIP_DB_PREPARE=true and
+# waits for `api` to be healthy, so migrations never run concurrently.
+# db:prepare creates+migrates (or loads schema for) every configured database,
+# including the Solid Queue `queue` database. It never drops data.
+if [ "${SKIP_DB_PREPARE:-false}" != "true" ]; then
+  echo "==> Running bin/rails db:prepare"
+  bin/rails db:prepare
+fi
+
+exec "$@"
