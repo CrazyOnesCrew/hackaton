@@ -1,0 +1,25 @@
+# syntax=docker/dockerfile:1
+
+# Development-only image for the Next.js portal. Production uses the separate
+# ./Dockerfile (standalone output, non-root) — this file never touches that
+# image. Here we optimize for a fast local loop: the code is bind-mounted by
+# docker-compose for hot reload and node_modules lives in an anonymous volume
+# so the host filesystem (important on Windows) is never used for packages.
+
+FROM node:20-alpine
+
+WORKDIR /app
+
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Install packages first for layer caching. The anonymous node_modules volume
+# declared in docker-compose.yml is seeded from this layer on first run.
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# The application code is bind-mounted by docker-compose at runtime, so we do
+# not COPY it here — edits on the host are picked up live (hot reload).
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev", "--", "-H", "0.0.0.0", "-p", "3000"]

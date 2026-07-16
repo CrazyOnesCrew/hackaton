@@ -1,6 +1,7 @@
-# Local development stack for the Rails API (apps/api) and its PostgreSQL
-# database. Mobile (apps/mobile) and portal (apps/portal) are intentionally not
-# containerized here — run them with the root package.json scripts.
+# Local development stack: PostgreSQL, the Rails API (apps/api), its Solid
+# Queue worker, and the Next.js portal (apps/portal). Mobile (apps/mobile) is
+# intentionally not containerized here — run it with the root package.json
+# scripts (npm run mobile / mobile:web).
 #
 # Quick start (from the repo root):
 #   cp .env.example .env      # first time only; adjust if needed
@@ -38,6 +39,10 @@ services:
     environment:
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
+      # Allow requests addressed to the compose service name (Host: api), so
+      # the portal container can call the API as http://api:3000. Built-in
+      # Rails host-authorization allowlist — no code change needed.
+      RAILS_DEVELOPMENT_HOSTS: api
       # database.yml reads these; DB_HOST=db points at the compose network.
       DB_HOST: db
       DB_PORT: 5432
@@ -89,6 +94,29 @@ services:
       db:
         condition: service_healthy
       # Wait until api has finished db:prepare and is serving before consuming jobs.
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  portal:
+    build:
+      context: ./apps/portal
+      dockerfile: Dockerfile.dev
+    environment:
+      # Inside the compose network the portal reaches the API by service name.
+      RAILS_API_URL: http://api:3000
+      NEXT_TELEMETRY_DISABLED: "1"
+    volumes:
+      # Bind-mount the app for hot reload; keep node_modules in an anonymous
+      # volume so the image's packages are used instead of the host's.
+      - ./apps/portal:/app
+      - /app/node_modules
+      # Keep the Next.js build cache off the host bind mount (much faster,
+      # especially on Windows).
+      - /app/.next
+    ports:
+      - "${PORTAL_PORT:-3001}:3000"
+    depends_on:
       api:
         condition: service_healthy
     restart: unless-stopped
