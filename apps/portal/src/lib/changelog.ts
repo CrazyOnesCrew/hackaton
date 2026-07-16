@@ -33,6 +33,14 @@ export const CHANGE_KIND_META: Record<ChangeKind, { label: string; color: string
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "1.2.0",
+    date: "2026-07-16",
+    type: "minor",
+    changes: [
+      { kind: "added", text: "Banco de ejercicios: tabla con filtros, publicar/archivar, reordenar y preview con KaTeX." },
+    ],
+  },
+  {
     version: "1.1.0",
     date: "2026-07-16",
     type: "minor",

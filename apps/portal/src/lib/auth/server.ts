@@ -55,3 +55,10 @@ export async function requireAdminToken(): Promise<string> {
   if (!token) throw new Response("Unauthorized", { status: 401 });
   return token;
 }
+
+export async function requireContentManagerToken(): Promise<string> {
+  await requireContentManager();
+  const token = await getSessionToken();
+  if (!token) throw new Response("Unauthorized", { status: 401 });
+  return token;
+}
