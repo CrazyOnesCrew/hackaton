@@ -61,8 +61,8 @@ export default function VersionWidget({ rail = false }: { rail?: boolean }) {
         </div>
         <button
           onClick={() => setOpen(true)}
-          className="mt-2.5 flex w-full items-center justify-center gap-1.5 rounded-md py-1.5 text-xs font-semibold text-white transition-all hover:brightness-110"
-          style={{ background: "#5b5fef" }}
+          className="mt-2.5 flex w-full items-center justify-center gap-1.5 rounded-pill py-1.5 text-xs font-semibold text-ink transition-all hover:brightness-105"
+          style={{ background: "var(--color-primary)" }}
         >
           <Sparkles size={13} />
           Novedades

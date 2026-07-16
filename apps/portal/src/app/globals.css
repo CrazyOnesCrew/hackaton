@@ -1,86 +1,104 @@
 @import "tailwindcss";
 
-/* ── Design Tokens ─────────────────────────── */
+/* ── Design Tokens (styleguide.md) ─────────────────
+   Paleta pastel: lavanda primaria + ámbar de acento, fondos claros,
+   tipografía Nunito redondeada, pills full-rounded y flat design
+   (sin sombras). Fuente de verdad visual: styleguide.md (raíz). */
 
 @theme inline {
-  --font-sans: var(--font-plex);
-  --font-heading: var(--font-plex);
-  --font-mono: var(--font-plex), ui-monospace, monospace;
+  --font-sans: var(--font-nunito);
+  --font-heading: var(--font-nunito);
+  --font-mono: ui-monospace, monospace;
 
-  --color-primary: #5b5fef;
-  --color-primary-light: #eef2ff;
-  --color-primary-muted: #c7d2fe;
+  /* Lavanda pastel — estados activos, botones principales, acentos. */
+  --color-primary: #b9a5f5;
+  --color-primary-soft: #ede8fb;
+  /* Tono lavanda más saturado: texto/iconos de acento sobre fondos claros. */
+  --color-primary-strong: #8b74e8;
 
-  --color-app-blue: #5b5fef;
-  --color-app-violet: #651fff;
-  --color-app-green: #83f6c3;
-  --color-app-dark: #3f4041;
-  --color-app-silver: #c1cce7;
-  --color-app-navy: #0f172a;
+  /* Ámbar — insignias, destacados, textos especiales. */
+  --color-accent: #f5a623;
+  --color-accent-soft: #fdf0da;
+
+  /* Superficies: gris/azul muy claro para cards, inputs y contenedores. */
+  --color-surface: #f5f6fa;
+
+  /* Texto: gris oscuro casi negro (títulos) y gris medio (secundario). */
+  --color-ink: #1f2430;
+  --color-ink-muted: #6b7280;
+
+  /* Compatibilidad con la escala previa del template. */
+  --color-primary-light: #ede8fb;
+  --color-primary-muted: #d8ccf9;
+
+  /* Radios del design system: cards muy redondeadas + pills. */
+  --radius-card: 1.5rem;
+  --radius-pill: 9999px;
 }
 
 /* ── Light mode (default) ────────────────────────── */
 
 :root {
-  --bg: #f0f2f5;
-  --bg-raised: #ffffff;
-  --bg-subtle: #f9fafb;
-  --fg: #111827;
+  --bg: #ffffff;
+  --bg-raised: #f5f6fa;
+  --bg-subtle: #f5f6fa;
+  --fg: #1f2430;
   --fg-muted: #6b7280;
   --fg-faint: #9ca3af;
-  --border: #e5e7eb;
+  --border: #eceef4;
   --border-subtle: #f3f4f6;
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.064);
-  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.096);
-  --glow: rgba(91, 95, 239, 0.10);
+  /* Flat design: la jerarquía se logra con contraste de fondos, no sombras. */
+  --card-shadow: none;
+  --card-shadow-hover: none;
+  --glow: rgba(185, 165, 245, 0.14);
   --toolbar-bg: #ffffff;
   --sidebar-bg: #ffffff;
-  --panel-bg: #ffffff;
-  --input-bg: #f9fafb;
-  --input-border: #e5e7eb;
-  --input-focus: rgba(91, 95, 239, 0.35);
-  --accent-bg: rgba(91, 95, 239, 0.06);
-  --accent-bg-sel: #eef2ff;
+  --panel-bg: #f5f6fa;
+  --input-bg: #f5f6fa;
+  --input-border: #eceef4;
+  --input-focus: rgba(185, 165, 245, 0.55);
+  --accent-bg: rgba(185, 165, 245, 0.12);
+  --accent-bg-sel: #ede8fb;
   --success-bg: rgba(16, 185, 129, 0.08);
   --success-bg-sel: rgba(16, 185, 129, 0.14);
   --green-text: #10b981;
   --green-badge-bg: rgba(16, 185, 129, 0.10);
   --green-badge-border: rgba(16, 185, 129, 0.20);
-  --shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.096);
+  --shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.08);
 
   /* Global radius scale — overrides Tailwind's defaults so every `rounded-*`
-     utility (and the tokens below) reads tighter, squarer corners. Lowering
-     these is the single lever for the app-wide "less rounded" look. */
-  --radius-sm: 4px;
-  --radius-md: 5px;
-  --radius-lg: 7px;
-  --radius-xl: 8px;
-  --radius-2xl: 10px;
-  --radius-3xl: 12px;
+     utility reads generously rounded corners, per the styleguide's pill /
+     24-30px card aesthetic. */
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 18px;
+  --radius-2xl: 22px;
+  --radius-3xl: 24px;
 }
 
 /* ── Dark mode ───────────────────────────────────── */
 
 .dark {
-  --bg: #0c1021;
-  --bg-raised: #131a30;
-  --bg-subtle: #111730;
-  --fg: #e6e8ef;
-  --fg-muted: #9aa3bd;
-  --fg-faint: #5b6483;
+  --bg: #14121d;
+  --bg-raised: #1d1a2b;
+  --bg-subtle: #1a1726;
+  --fg: #ece9f6;
+  --fg-muted: #a49fb8;
+  --fg-faint: #6b6580;
   --border: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.05);
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.24), 0 8px 24px rgba(0, 0, 0, 0.16);
-  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.28);
-  --glow: rgba(91, 95, 239, 0.18);
-  --toolbar-bg: #131a30;
-  --sidebar-bg: #131a30;
-  --panel-bg: #131a30;
-  --input-bg: rgba(255, 255, 255, 0.04);
+  --card-shadow: none;
+  --card-shadow-hover: none;
+  --glow: rgba(185, 165, 245, 0.18);
+  --toolbar-bg: #1d1a2b;
+  --sidebar-bg: #1d1a2b;
+  --panel-bg: #1d1a2b;
+  --input-bg: rgba(255, 255, 255, 0.05);
   --input-border: rgba(255, 255, 255, 0.08);
-  --input-focus: rgba(91, 95, 239, 0.40);
-  --accent-bg: rgba(91, 95, 239, 0.10);
-  --accent-bg-sel: rgba(91, 95, 239, 0.18);
+  --input-focus: rgba(185, 165, 245, 0.45);
+  --accent-bg: rgba(185, 165, 245, 0.12);
+  --accent-bg-sel: rgba(185, 165, 245, 0.20);
   --success-bg: rgba(16, 185, 129, 0.10);
   --success-bg-sel: rgba(16, 185, 129, 0.18);
   --green-text: #34d399;
@@ -100,7 +118,7 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-plex), "IBM Plex Sans", system-ui, sans-serif;
+  font-family: var(--font-nunito), "Nunito", system-ui, sans-serif;
 }
 
 /* ── Toolbar glass ───────────────────────────────── */
@@ -114,17 +132,16 @@ body {
 /* ── Buttons ─────────────────────────────────────── */
 
 .btn-primary {
-  background: linear-gradient(135deg, #5b5fef 0%, #651fff 100%);
-  color: #ffffff;
-  font-family: var(--font-plex), "IBM Plex Sans", sans-serif;
-  font-weight: 600;
-  border-radius: var(--radius-xl);
+  background: var(--color-primary);
+  color: var(--color-ink);
+  font-family: var(--font-nunito), "Nunito", sans-serif;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
   transition: all 0.15s ease;
   letter-spacing: 0.01em;
 }
 .btn-primary:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 0 24px rgba(91, 95, 239, 0.3);
+  filter: brightness(1.05);
 }
 .btn-primary:active {
   transform: scale(0.97);
@@ -132,7 +149,7 @@ body {
 
 .btn-ghost {
   color: var(--fg-muted);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-pill);
   transition: all 0.15s ease;
 }
 .btn-ghost:hover {
@@ -145,23 +162,21 @@ body {
 }
 
 .btn-accent {
-  background: rgba(91, 95, 239, 0.08);
-  color: #5b5fef;
-  border: 1px solid rgba(91, 95, 239, 0.18);
-  border-radius: var(--radius-xl);
-  font-family: var(--font-plex), "IBM Plex Sans", sans-serif;
-  font-weight: 600;
+  background: var(--color-primary);
+  color: var(--color-ink);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-nunito), "Nunito", sans-serif;
+  font-weight: 700;
   transition: all 0.15s ease;
 }
 .btn-accent:hover {
-  background: rgba(91, 95, 239, 0.14);
-  border-color: rgba(91, 95, 239, 0.30);
-  box-shadow: 0 0 16px rgba(91, 95, 239, 0.10);
+  filter: brightness(1.05);
 }
 
 .btn-danger {
   color: var(--fg-muted);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-pill);
   transition: all 0.15s ease;
 }
 .btn-danger:hover {
@@ -173,9 +188,9 @@ body {
 
 .sidebar-label {
   display: block;
-  font-family: var(--font-plex), "IBM Plex Sans", sans-serif;
+  font-family: var(--font-nunito), "Nunito", sans-serif;
   font-size: 0.625rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: var(--fg-faint);
@@ -184,18 +199,18 @@ body {
 
 .sidebar-input {
   width: 100%;
-  padding: 0.5rem 0.625rem;
+  padding: 0.5rem 0.75rem;
   font-size: 0.8125rem;
   background: var(--input-bg);
   border: 1px solid var(--input-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-pill);
   color: var(--fg);
   outline: none;
   transition: all 0.15s ease;
 }
 .sidebar-input:focus {
   border-color: var(--input-focus);
-  box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.10);
+  box-shadow: 0 0 0 3px rgba(185, 165, 245, 0.15);
 }
 .sidebar-input::placeholder {
   color: var(--fg-faint);
@@ -203,32 +218,32 @@ body {
 
 .sidebar-select {
   width: 100%;
-  padding: 0.5rem 0.625rem;
+  padding: 0.5rem 0.75rem;
   font-size: 0.8125rem;
   background: var(--input-bg);
   border: 1px solid var(--input-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-pill);
   color: var(--fg);
   outline: none;
   appearance: none;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7394' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.625rem center;
+  background-position: right 0.75rem center;
   transition: all 0.15s ease;
 }
 .sidebar-select:focus {
   border-color: var(--input-focus);
-  box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.10);
+  box-shadow: 0 0 0 3px rgba(185, 165, 245, 0.15);
 }
 
 /* ── Form controls (design system) ───────────────── */
 
 .field-control {
   width: 100%;
-  border: 1px solid var(--input-border);
-  background: var(--bg-raised);
-  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: var(--input-bg);
+  border-radius: var(--radius-xl);
   color: var(--fg);
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -239,11 +254,11 @@ body {
   color: var(--fg-faint);
 }
 .field-control:hover:not(:focus):not(:disabled) {
-  border-color: var(--fg-faint);
+  border-color: var(--input-border);
 }
 .field-control:focus {
   border-color: var(--input-focus);
-  box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.12);
+  box-shadow: 0 0 0 3px rgba(185, 165, 245, 0.15);
 }
 .field-control:disabled {
   opacity: 0.6;
@@ -262,32 +277,25 @@ body {
 
 .stat-card {
   padding: 0.875rem;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   text-align: center;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
-  box-shadow: var(--card-shadow);
+  background: var(--color-surface);
   transition: all 0.15s ease;
-}
-.stat-card:hover {
-  box-shadow: var(--card-shadow-hover);
 }
 .stat-card-accent {
   background: var(--accent-bg);
-  border-color: rgba(91, 95, 239, 0.12);
+  border-color: rgba(185, 165, 245, 0.24);
 }
 .stat-card-success {
   background: var(--success-bg);
-  border-color: rgba(131, 246, 195, 0.12);
+  border-color: rgba(16, 185, 129, 0.16);
 }
 
 /* ── Glass panel ─────────────────────────────────── */
 
 .glass-panel {
   background: var(--bg-raised);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
 }
 
@@ -301,11 +309,11 @@ body {
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(91, 95, 239, 0.15);
+  background: rgba(185, 165, 245, 0.30);
   border-radius: 3px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(91, 95, 239, 0.25);
+  background: rgba(185, 165, 245, 0.50);
 }
 
 /* ── Table performance ──────────────────────────── */
@@ -318,7 +326,7 @@ tbody tr {
 /* ── Font utility ────────────────────────────────── */
 
 .font-heading {
-  font-family: var(--font-plex), "IBM Plex Sans", sans-serif;
+  font-family: var(--font-nunito), "Nunito", sans-serif;
 }
 
 /* ── Range slider ────────────────────────────────── */
@@ -326,7 +334,7 @@ tbody tr {
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  background: linear-gradient(90deg, rgba(91, 95, 239, 0.15), rgba(101, 31, 255, 0.15));
+  background: var(--color-primary-soft);
   border-radius: 999px;
   height: 4px;
   cursor: pointer;
@@ -336,19 +344,18 @@ input[type="range"]::-webkit-slider-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #5b5fef, #651fff);
+  background: var(--color-primary);
   border: 2px solid var(--bg);
-  box-shadow: 0 0 10px rgba(91, 95, 239, 0.35);
-  transition: box-shadow 0.15s ease;
+  transition: filter 0.15s ease;
 }
 input[type="range"]::-webkit-slider-thumb:hover {
-  box-shadow: 0 0 16px rgba(91, 95, 239, 0.5);
+  filter: brightness(1.05);
 }
 
 /* ── Checkbox accent ─────────────────────────────── */
 
 input[type="checkbox"] {
-  accent-color: #5b5fef;
+  accent-color: #b9a5f5;
 }
 
 /* ── Animations ──────────────────────────────────── */
@@ -359,8 +366,8 @@ input[type="checkbox"] {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(91, 95, 239, 0.25); }
-  50% { box-shadow: 0 0 0 6px rgba(91, 95, 239, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(185, 165, 245, 0.30); }
+  50% { box-shadow: 0 0 0 6px rgba(185, 165, 245, 0); }
 }
 
 @keyframes fade-in-up {
@@ -401,7 +408,7 @@ input[type="checkbox"] {
   top: 0;
   bottom: 0;
   border-radius: 9999px;
-  background: linear-gradient(90deg, #5b5fef, #651fff);
+  background: var(--color-primary);
   animation: indeterminate 1.6s ease-in-out infinite;
 }
 
@@ -438,7 +445,7 @@ input[type="checkbox"] {
   background: var(--input-border);
 }
 .app-switch[data-checked="true"] {
-  background: #5b5fef;
+  background: var(--color-primary);
 }
 .app-switch::after {
   content: "";
@@ -473,13 +480,13 @@ input[type="checkbox"] {
 }
 
 .sidebar-item-active {
-  background: rgba(91, 95, 239, 0.12);
-  color: #5b5fef;
+  background: var(--color-primary-soft);
+  color: var(--color-ink);
 }
 
 .dark .sidebar-item-active {
-  background: rgba(91, 95, 239, 0.18);
-  color: #8b96ff;
+  background: rgba(185, 165, 245, 0.20);
+  color: #cfc2f8;
 }
 
 /* ── Drawer animation ────────────────────────────── */

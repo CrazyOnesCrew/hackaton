@@ -33,7 +33,7 @@ export function renderInlineMarkdown(text: string): ReactNode {
         <code
           key={key++}
           className="rounded px-1 py-0.5 font-mono text-[0.82em]"
-          style={{ background: "var(--bg-subtle)", color: "#5b5fef", border: "1px solid var(--border)" }}
+          style={{ background: "var(--bg-subtle)", color: "var(--color-primary-strong)", border: "1px solid var(--border)" }}
         >
           {m[4]}
         </code>,
@@ -46,7 +46,7 @@ export function renderInlineMarkdown(text: string): ReactNode {
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium underline decoration-from-font underline-offset-2"
-          style={{ color: "#5b5fef" }}
+          style={{ color: "var(--color-primary-strong)" }}
         >
           {renderInlineMarkdown(m[6])}
         </a>,

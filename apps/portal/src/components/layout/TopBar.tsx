@@ -94,7 +94,7 @@ export default function TopBar() {
         <Dropdown
           trigger={
             <>
-              <span className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white" style={{ background: "#5b5fef" }}>
+              <span className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-ink" style={{ background: "var(--color-primary)" }}>
                 {initials}
               </span>
               <span className="hidden max-w-28 truncate text-sm font-medium lg:block" style={{ color: "var(--fg)" }}>
@@ -111,14 +111,14 @@ export default function TopBar() {
           {({ close }) => (
             <>
               <div className="flex items-center gap-3 border-b px-3 py-3" style={{ borderColor: "var(--border)" }}>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-white" style={{ background: "#5b5fef" }}>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-ink" style={{ background: "var(--color-primary)" }}>
                   {initials}
                 </span>
                 <div className="min-w-0">
                   <div className="truncate text-sm font-semibold" style={{ color: "var(--fg)" }}>{user.displayName}</div>
                   <div className="truncate text-xs" style={{ color: "var(--fg-muted)" }}>{user.email}</div>
                   {roleLabel && (
-                    <div className="mt-1 inline-block rounded-full px-2 py-0.5 text-[11px] font-medium" style={{ background: "var(--accent-bg)", color: "#5b5fef" }}>
+                    <div className="mt-1 inline-block rounded-full px-2 py-0.5 text-[11px] font-medium" style={{ background: "var(--accent-bg)", color: "var(--color-primary-strong)" }}>
                       {roleLabel}
                     </div>
                   )}

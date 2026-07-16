@@ -26,7 +26,7 @@ export interface ChangelogEntry {
 
 export const CHANGE_KIND_META: Record<ChangeKind, { label: string; color: string }> = {
   added: { label: "New", color: "#10b981" },
-  changed: { label: "Changed", color: "#5b5fef" },
+  changed: { label: "Changed", color: "#8b74e8" },
   fixed: { label: "Fix", color: "#f59e0b" },
   removed: { label: "Removed", color: "#ef4444" },
 };

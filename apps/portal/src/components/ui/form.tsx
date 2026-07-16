@@ -78,7 +78,7 @@ export const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"in
     <input
       ref={ref}
       aria-invalid={invalid || undefined}
-      className={cn("field-control h-11 px-3", invalid && "field-control--invalid", className)}
+      className={cn("field-control h-11 rounded-pill px-4", invalid && "field-control--invalid", className)}
       {...props}
     />
   ),
