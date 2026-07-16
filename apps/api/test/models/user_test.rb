@@ -15,6 +15,15 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?, user.errors.full_messages.to_s
   end
 
+  test "defines stable role values including auxiliary" do
+    assert_equal({ "admin" => 0, "member" => 1, "auxiliary" => 2 }, User.roles)
+  end
+
+  test "accepts auxiliary role" do
+    user = User.new(valid_attrs.merge(role: "auxiliary"))
+    assert user.valid?, user.errors.full_messages.to_s
+  end
+
   test "requires email" do
     user = User.new(valid_attrs.merge(email: nil))
     assert_not user.valid?

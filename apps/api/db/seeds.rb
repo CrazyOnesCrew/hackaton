@@ -5,7 +5,8 @@
 
 demo_users = [
   { email: "admin@example.com", display_name: "Admin Example", role: "admin" },
-  { email: "member@example.com", display_name: "Member Example", role: "member" }
+  { email: "member@example.com", display_name: "Member Example", role: "member" },
+  { email: "auxiliary@example.com", display_name: "Auxiliary Example", role: "auxiliary" }
 ]
 
 demo_password = ENV.fetch("SEED_PASSWORD", "Password123")

@@ -59,6 +59,10 @@ module Api
           }, status: :forbidden
         end
 
+        def require_content_manager!
+          require_role(:auxiliary, :admin)
+        end
+
         def render_unauthorized
           render json: {
             error: {

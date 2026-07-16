@@ -1,12 +1,12 @@
 class User < ApplicationRecord
   include Discardable
 
-  # Generic roles for the template. Extend this list for your own project.
-  ROLES = %w[admin member].freeze
   STATUSES = %w[active disabled].freeze
   MAX_FAILED_LOGIN_ATTEMPTS = 5
   EMAIL_FORMAT = URI::MailTo::EMAIL_REGEXP
   PASSWORD_MIN_LENGTH = 8
+
+  enum :role, { admin: 0, member: 1, auxiliary: 2 }, default: :member, validate: true
 
   has_secure_password
   has_many :sessions, dependent: :destroy
@@ -19,7 +19,7 @@ class User < ApplicationRecord
     message: "must include at least one letter and one number"
   }, if: -> { password.present? }
   validates :password, presence: true, on: :create
-  validates :role, presence: true, inclusion: { in: ROLES }
+  validates :role, presence: true
   validates :display_name, presence: true
   validates :status, presence: true, inclusion: { in: STATUSES }
 
