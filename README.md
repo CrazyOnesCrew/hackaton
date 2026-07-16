@@ -5,8 +5,20 @@ independent applications and the tooling for spec-driven, AI-assisted
 development — with **no business domain** of its own. Clone it, rename it, and
 build your product on top.
 
+## PAAG
+
+This repository is being built into **PAAG**, an open platform for guided
+step-by-step math practice: a student app (mobile + web), a content-management
+portal for exercise banks (XML import, CSV export), deterministic answer
+validation with optional AI feedback, gamification, and LTI 1.3 integration.
+The full specification, plan, contracts, and tickets live in
+[`specs/001-paag/`](specs/001-paag/). For local development the whole stack
+(PostgreSQL, API, worker, portal) runs with `docker compose up --build` — see
+[`docs/getting-started.md`](docs/getting-started.md).
+
 ## Table of contents
 
+- [PAAG](#paag)
 - [What's inside](#whats-inside)
 - [Stack](#stack)
 - [Requirements](#requirements)
