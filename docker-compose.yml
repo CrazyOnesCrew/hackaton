@@ -1,0 +1,98 @@
+# Local development stack for the Rails API (apps/api) and its PostgreSQL
+# database. Mobile (apps/mobile) and portal (apps/portal) are intentionally not
+# containerized here — run them with the root package.json scripts.
+#
+# Quick start (from the repo root):
+#   cp .env.example .env      # first time only; adjust if needed
+#   docker compose up --build
+#
+# See apps/api/README_DOCKER.md for the full command reference.
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      # Primary development database. The Solid Queue database
+      # (<db>_queue) is created automatically by `db:prepare`.
+      POSTGRES_DB: ${POSTGRES_DB:-template_development}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      # Published for host tools like DBeaver/psql. Defaults to 5433 to avoid
+      # clashing with a PostgreSQL already bound to 5432 on the host.
+      - "${POSTGRES_HOST_PORT:-5433}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.dev
+    command: ["bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+    environment:
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: "true"
+      # database.yml reads these; DB_HOST=db points at the compose network.
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: ${POSTGRES_USER:-postgres}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      DB_NAME: ${POSTGRES_DB:-template_development}
+      DB_QUEUE_NAME: ${POSTGRES_DB:-template_development}_queue
+    volumes:
+      # Bind-mount the app for hot reload; keep gems in a named volume so the
+      # host filesystem is never used for gems (important on Windows).
+      - ./apps/api:/rails
+      - bundle_data:/usr/local/bundle
+    ports:
+      - "${API_PORT:-3000}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/up || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.dev
+    # Solid Queue supervisor. Same image/config as api; only the command differs.
+    command: ["bin/jobs"]
+    environment:
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: "true"
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: ${POSTGRES_USER:-postgres}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      DB_NAME: ${POSTGRES_DB:-template_development}
+      DB_QUEUE_NAME: ${POSTGRES_DB:-template_development}_queue
+      # api owns db:prepare; the worker must not migrate concurrently.
+      SKIP_DB_PREPARE: "true"
+    volumes:
+      - ./apps/api:/rails
+      - bundle_data:/usr/local/bundle
+    depends_on:
+      db:
+        condition: service_healthy
+      # Wait until api has finished db:prepare and is serving before consuming jobs.
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  bundle_data:

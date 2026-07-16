@@ -1,0 +1,7 @@
+# Force LF on shell scripts and executables so they run inside Linux containers
+# even when checked out on Windows with core.autocrlf=true. A CRLF in a script
+# shebang causes "no such file or directory" / bad interpreter errors.
+*.sh text eol=lf
+apps/api/bin/* text eol=lf
+apps/api/Dockerfile* text eol=lf
+docker-compose.yml text eol=lf

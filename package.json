@@ -1,0 +1,11 @@
+{
+  "name": "ai-first-project-template",
+  "private": true,
+  "scripts": {
+    "backend": "cd apps/api && bin/rails server -b 0.0.0.0",
+    "frontend": "npm --prefix apps/portal run dev -- -p 3001",
+    "mobile": "pnpm --dir apps/mobile start",
+    "mobile:clear": "pnpm --dir apps/mobile start -c",
+    "mobile:web": "pnpm --dir apps/mobile web"
+  }
+}
