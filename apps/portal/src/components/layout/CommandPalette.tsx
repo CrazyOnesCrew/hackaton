@@ -147,7 +147,7 @@ export default function CommandPalette({ onClose }: { onClose: () => void }) {
                     onMouseMove={() => setActive(idx)}
                     onClick={() => runCommand(cmd)}
                     className="flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-left text-sm transition-colors"
-                    style={isActive ? { background: "var(--accent-bg-sel)", color: "#5b5fef" } : { color: "var(--fg-muted)" }}
+                    style={isActive ? { background: "var(--accent-bg-sel)", color: "var(--color-primary-strong)" } : { color: "var(--fg-muted)" }}
                   >
                     <Icon size={17} strokeWidth={1.6} className="shrink-0" />
                     <span className="flex-1 truncate font-medium" style={isActive ? undefined : { color: "var(--fg)" }}>

@@ -227,9 +227,9 @@ export function DataTable<TData, TValue>({
         <div className="flex flex-wrap items-center gap-2 border-b px-3 py-2.5" style={{ borderColor: "var(--border)" }}>
           <span className="text-xs font-medium" style={{ color: "var(--fg-faint)" }}>Filtros:</span>
           {chips.map((c) => (
-            <span key={c.key} className="inline-flex items-center gap-1.5 rounded-full border py-1 pl-2.5 pr-1.5 text-xs font-medium" style={{ borderColor: "rgba(91,95,239,0.3)", background: "var(--accent-bg-sel)", color: "#5b5fef" }}>
+            <span key={c.key} className="inline-flex items-center gap-1.5 rounded-full border py-1 pl-2.5 pr-1.5 text-xs font-medium" style={{ borderColor: "rgba(185,165,245,0.5)", background: "var(--accent-bg-sel)", color: "var(--color-primary-strong)" }}>
               {c.label}
-              <button onClick={c.remove} aria-label={`Quitar ${c.label}`} className="flex h-4 w-4 items-center justify-center rounded-full transition-colors hover:bg-[rgba(91,95,239,0.2)]">
+              <button onClick={c.remove} aria-label={`Quitar ${c.label}`} className="flex h-4 w-4 items-center justify-center rounded-full transition-colors hover:bg-[rgba(185,165,245,0.3)]">
                 <X size={11} />
               </button>
             </span>
@@ -310,7 +310,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.setPageIndex(p - 1)}
                 aria-current={p === pageIndex + 1 ? "page" : undefined}
                 className="flex h-8 min-w-8 items-center justify-center rounded-md border px-2 text-xs font-medium transition-colors"
-                style={p === pageIndex + 1 ? { borderColor: "#5b5fef", background: "var(--accent-bg-sel)", color: "#5b5fef" } : { borderColor: "var(--border)", color: "var(--fg-muted)" }}
+                style={p === pageIndex + 1 ? { borderColor: "var(--color-primary)", background: "var(--accent-bg-sel)", color: "var(--color-primary-strong)" } : { borderColor: "var(--border)", color: "var(--fg-muted)" }}
               >
                 {p}
               </button>
@@ -335,13 +335,13 @@ function MultiSelectControl<TData>({ table, filter }: { table: TanstackTable<TDa
       align="left"
       panelClassName="w-52 p-1"
       triggerClassName={filterTriggerClass}
-      triggerStyle={{ borderColor: selected.length ? "rgba(91,95,239,0.4)" : "var(--border)", color: selected.length ? "#5b5fef" : "var(--fg-muted)" }}
+      triggerStyle={{ borderColor: selected.length ? "rgba(185,165,245,0.6)" : "var(--border)", color: selected.length ? "var(--color-primary-strong)" : "var(--fg-muted)" }}
       triggerLabel={filter.label}
       trigger={
         <>
           <ListFilter size={15} /> {filter.label}
           {selected.length > 0 && (
-            <span className="flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white" style={{ background: "#5b5fef" }}>{selected.length}</span>
+            <span className="flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-ink" style={{ background: "var(--color-primary)" }}>{selected.length}</span>
           )}
           <ChevronDown size={14} style={{ color: "var(--fg-faint)" }} />
         </>
@@ -381,12 +381,12 @@ function DateRangeControl<TData>({ table, filter }: { table: TanstackTable<TData
       align="left"
       panelClassName="w-64 p-3"
       triggerClassName={filterTriggerClass}
-      triggerStyle={{ borderColor: active ? "rgba(91,95,239,0.4)" : "var(--border)", color: active ? "#5b5fef" : "var(--fg-muted)" }}
+      triggerStyle={{ borderColor: active ? "rgba(185,165,245,0.6)" : "var(--border)", color: active ? "var(--color-primary-strong)" : "var(--fg-muted)" }}
       triggerLabel={filter.label}
       trigger={
         <>
           <CalendarRange size={15} /> {filter.label}
-          {active && <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#5b5fef" }} />}
+          {active && <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--color-primary-strong)" }} />}
           <ChevronDown size={14} style={{ color: "var(--fg-faint)" }} />
         </>
       }

@@ -94,7 +94,7 @@ export default function LoginScreen() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white transition-opacity disabled:opacity-50 btn-accent"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-bold transition-opacity disabled:opacity-50 btn-accent"
           >
             {submitting ? "Ingresando…" : "Iniciar sesión"}
           </button>

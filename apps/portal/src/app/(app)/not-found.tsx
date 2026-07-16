@@ -11,7 +11,7 @@ import { isPortalRole, roleHome } from "@/lib/navigation";
 gsap.registerPlugin(useGSAP);
 
 const GRADIENT = {
-  backgroundImage: "linear-gradient(135deg, #5b5fef 0%, #651fff 60%, #a855f7 100%)",
+  backgroundImage: "linear-gradient(135deg, #b9a5f5 0%, #8b74e8 60%, #f5a623 100%)",
   WebkitBackgroundClip: "text",
   backgroundClip: "text",
   color: "transparent",
@@ -69,7 +69,7 @@ export default function NotFound() {
 
   return (
     <div ref={root} className="relative flex min-h-[74vh] w-full flex-col items-center justify-center overflow-hidden text-center">
-      <div className="gradient-orb left-1/2 top-1/4 h-72 w-72 -translate-x-1/2" style={{ background: "#5b5fef" }} />
+      <div className="gradient-orb left-1/2 top-1/4 h-72 w-72 -translate-x-1/2" style={{ background: "var(--color-primary)" }} />
 
       <div ref={digits} className="relative flex select-none items-center gap-2 sm:gap-4" style={{ perspective: 800 }}>
         {["4", "0", "4"].map((d, i) => (
@@ -93,8 +93,8 @@ export default function NotFound() {
       <div className="nf-cta relative mt-7 flex flex-wrap items-center justify-center gap-3">
         <Link
           href={home}
-          className="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold text-white transition-all hover:brightness-110"
-          style={{ background: "#5b5fef" }}
+          className="inline-flex items-center gap-2 rounded-pill px-5 py-2 text-sm font-bold text-ink transition-all hover:brightness-105"
+          style={{ background: "var(--color-primary)" }}
         >
           <ArrowLeft size={16} /> Volver al panel
         </Link>

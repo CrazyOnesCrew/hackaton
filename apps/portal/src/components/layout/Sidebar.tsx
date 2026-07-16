@@ -26,7 +26,7 @@ const ICONS = {
   settings: Settings, help: HelpCircle,
 } as const;
 
-const ACCENT = "#5b5fef";
+const ACCENT = "var(--color-primary)";
 
 function isActive(href: string, pathname: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -101,7 +101,7 @@ export default function Sidebar() {
         {rail ? (
           <button
             onClick={toggleCollapsed}
-            className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-white transition-transform hover:scale-105"
+            className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-ink transition-transform hover:scale-105"
             style={{ background: ACCENT }}
             aria-label="Expandir menú"
             title="Expandir menú"
@@ -111,7 +111,7 @@ export default function Sidebar() {
           </button>
         ) : (
           <>
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-sm font-extrabold leading-none text-white" style={{ background: ACCENT }}>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-sm font-extrabold leading-none text-ink" style={{ background: ACCENT }}>
               T
             </span>
             <div className="flex flex-col leading-none">
@@ -164,8 +164,9 @@ export default function Sidebar() {
                 const expandable = hasChildren && !rail;
                 const open = openMenus[item.href] ?? active;
 
+                // Nav activo estilo styleguide: pill lavanda suave + texto oscuro.
                 const rowStyle = active
-                  ? { background: "var(--accent-bg-sel)", color: ACCENT }
+                  ? { background: "var(--accent-bg-sel)", color: "var(--color-ink)" }
                   : { color: "var(--fg-muted)" };
                 const rowClass = `flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm font-medium transition-colors hover:bg-[var(--accent-bg)] ${rowCollapsed}`;
 
@@ -208,7 +209,7 @@ export default function Sidebar() {
                               key={child.href}
                               href={child.href}
                               className="rounded-md px-2.5 py-1.5 text-[13px] font-medium transition-colors hover:bg-[var(--accent-bg)]"
-                              style={{ color: cActive ? ACCENT : "var(--fg-muted)" }}
+                              style={{ color: cActive ? "var(--color-primary-strong)" : "var(--fg-muted)" }}
                             >
                               {child.label}
                             </Link>
