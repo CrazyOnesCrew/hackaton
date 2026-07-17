@@ -33,6 +33,17 @@ export const CHANGE_KIND_META: Record<ChangeKind, { label: string; color: string
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "1.4.1",
+    date: "2026-07-16",
+    type: "patch",
+    changes: [
+      {
+        kind: "added",
+        text: "Cobertura Vitest adversarial (QA backfill) para roles `/content`, mock `paag-api`, banco (filtros/archivar/reordenar/preview) e Input del styleguide.",
+      },
+    ],
+  },
+  {
     version: "1.4.0",
     date: "2026-07-16",
     type: "minor",

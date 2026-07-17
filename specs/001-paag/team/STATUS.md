@@ -10,10 +10,10 @@ Este archivo es el **reporte operativo** para no omitir gaps de QA ni tickets a 
 
 | Ticket | En master | Hash aprox. | QA adversarial | Pendiente al reportar |
 |---|---|---|---|---|
-| PAAG-001 | Sí | `29e80f9` (merge) / `3732173` | Falló (API limit); mergeado igual | Backfill QA pendiente / en curso |
-| PAAG-002 | Sí | `59fc316` (merge) / `a08c7c1` | Falló (API limit); mergeado igual | Backfill QA pendiente / en curso |
-| PAAG-301 | Sí | `ab5520a` | No corrido (cola recovery) | Backfill QA pendiente / en curso |
-| PAAG-302 | Sí | `e36454d` | No corrido (cola recovery) | Backfill QA pendiente / en curso |
+| PAAG-001 | Sí | `29e80f9` (merge) / `3732173` | **HECHO** backfill 2026-07-16 — APROBADO | — |
+| PAAG-002 | Sí | `59fc316` (merge) / `a08c7c1` | **HECHO** backfill 2026-07-16 — APROBADO | — |
+| PAAG-301 | Sí | `ab5520a` | **HECHO** backfill 2026-07-16 — APROBADO CON OBS. | Login real `auxiliary` espera PAAG-004 |
+| PAAG-302 | Sí | `e36454d` | **HECHO** backfill 2026-07-16 — APROBADO CON OBS. | Mock-first hasta endpoints Dev A |
 | PAAG-303 | Sí | `dac02ca` | No documentado | Correr QA adversarial; no dar por cerrado |
 | PAAG-304 | Sí | `16afd25` | No documentado | Correr QA adversarial; no dar por cerrado |
 | PAAG-501 | Sí | `bdde685` (fixes) / `da824b7` (merge) / `53a9666` | **HECHO** — 2 blockers; fixes en `bdde685` | Smoke prod `up` (falta `master.key` local); `RAILS_MASTER_KEY` solo local |
@@ -32,7 +32,7 @@ Smoke `docker compose … up` en prod **sigue pendiente** (falta `master.key` / 
 | Métrica | Valor |
 |---|---|
 | Código en `master` | **7 / 7 ≈ 100%** (001, 002, 301, 302, 303, 304, 501) |
-| “Hecho” con protocolo QA | **parcial** (QA 501 hecho + fixes; smoke prod 501 pendiente; backfill 001–302 pendiente / en curso; 303/304 sin QA adversarial aún) |
+| “Hecho” con protocolo QA | **parcial** (backfill 001–302 hecho; QA 501 hecho + fixes; smoke prod 501 pendiente; 303/304 sin QA adversarial aún) |
 
 Usar **≈100% en master** al hablar de avance de implementación; **no** reportar Dev C como cerrado hasta el checklist de abajo.
 
@@ -44,15 +44,14 @@ implementación → QA adversarial → merge a master
 
 Excepciones ya ocurridas (no repetir al reportar como “validado”):
 
-- **001 / 002**: QA adversarial falló por límite de API; se mergearon igual → backfill pendiente o en curso (`feature/paag-qa-backfill-001-302`).
-- **301 / 302**: pusheados sin QA adversarial (cola recovery) → backfill pendiente / en curso.
+- **001 / 002**: QA adversarial falló por límite de API; mergeados igual → **backfill HECHO** 2026-07-16 (`feature/paag-qa-backfill-001-302`).
+- **301 / 302**: pusheados sin QA adversarial (cola recovery) → **backfill HECHO** 2026-07-16 (OBS: `User::ROLES` aún sin `auxiliary` hasta PAAG-004).
 - **501**: QA adversarial hecho (2 blockers → fixes `bdde685`); falta smoke de producción (`master.key` local).
-- **303**: en master (`dac02ca`); sin QA adversarial documentado aún.
-- **304**: en master (`16afd25`); sin QA adversarial documentado aún.
+- **303 / 304**: ya en master; QA adversarial no documentado en este reporte.
 
 ## Checklist — antes de reportar como hecho
 
-- [ ] QA backfill 001–302 (adversarial o equivalente documentado) — pendiente / en curso
+- [x] QA backfill 001–302 (adversarial o equivalente documentado) — 2026-07-16
 - [x] QA 501 (adversarial hecho; fixes mergeados en `bdde685`)
 - [x] 303 + 304 en master (`dac02ca` / `16afd25`)
 - [ ] QA adversarial 303 + 304 documentado
