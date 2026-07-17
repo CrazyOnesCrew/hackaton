@@ -1,0 +1,23 @@
+databases: []
+
+services:
+  - type: web
+    name: hackaton-calculo
+    runtime: static
+    rootDir: apps/mobile
+    buildCommand: HUSKY=0 CI=1 pnpm install && EXPO_PUBLIC_APP_ENV=production EXPO_PUBLIC_API_URL=https://example.com EXPO_PUBLIC_VAR_NUMBER=10 EXPO_PUBLIC_VAR_BOOL=true pnpm exec expo export --platform web
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: EXPO_PUBLIC_APP_ENV
+        value: production
+      - key: EXPO_PUBLIC_API_URL
+        value: https://example.com
+      - key: EXPO_PUBLIC_VAR_NUMBER
+        value: "10"
+      - key: EXPO_PUBLIC_VAR_BOOL
+        value: "true"
+      - key: HUSKY
+        value: "0"
+      - key: CI
+        value: "1"

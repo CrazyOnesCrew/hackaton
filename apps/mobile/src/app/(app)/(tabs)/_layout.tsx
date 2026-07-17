@@ -1,6 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import * as React from 'react';
 import { Platform } from 'react-native';
 
 export default function TabsLayout() {
@@ -25,27 +24,9 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Study Guide',
+          title: 'Cálculo',
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="auto-stories" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="assistant"
-        options={{
-          title: 'AI Owl',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="auto-awesome" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="perfil"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="person" size={size} color={color} />
+            <MaterialIcons name="calculate" size={size} color={color} />
           ),
         }}
       />

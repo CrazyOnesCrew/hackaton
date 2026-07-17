@@ -15,11 +15,8 @@ import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { useThemeConfig } from '@/components/ui/use-theme-config';
-import { hydrateAuth } from '@/features/auth/use-auth-store';
 
-import { APIProvider } from '@/lib/api';
 import { loadSelectedTheme } from '@/lib/hooks/use-selected-theme';
-// Import  global CSS file
 import '../global.css';
 
 export { ErrorBoundary } from 'expo-router';
@@ -29,11 +26,8 @@ export const unstable_settings = {
   initialRouteName: 'index',
 };
 
-hydrateAuth();
 loadSelectedTheme();
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-// Set the animation options. This is optional.
 SplashScreen.setOptions({
   duration: 500,
   fade: true,
@@ -61,8 +55,6 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(app)" options={{ headerShown: false }} />
-        <Stack.Screen name="login" options={{ headerShown: false }} />
-        <Stack.Screen name="register" options={{ headerShown: false }} />
       </Stack>
     </Providers>
   );
@@ -78,12 +70,10 @@ function Providers({ children }: { children: React.ReactNode }) {
     >
       <KeyboardProvider>
         <ThemeProvider value={theme}>
-          <APIProvider>
-            <BottomSheetModalProvider>
-              {children}
-              <FlashMessage position="top" />
-            </BottomSheetModalProvider>
-          </APIProvider>
+          <BottomSheetModalProvider>
+            {children}
+            <FlashMessage position="top" />
+          </BottomSheetModalProvider>
         </ThemeProvider>
       </KeyboardProvider>
     </GestureHandlerRootView>

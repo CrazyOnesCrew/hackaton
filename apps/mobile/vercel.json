@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "HUSKY=0 CI=1 EXPO_PUBLIC_APP_ENV=production EXPO_PUBLIC_API_URL=https://example.com EXPO_PUBLIC_VAR_NUMBER=10 EXPO_PUBLIC_VAR_BOOL=true pnpm exec expo export --platform web",
+  "outputDirectory": "dist",
+  "installCommand": "HUSKY=0 CI=1 pnpm install",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/((?!_expo|assets|favicon.ico|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
