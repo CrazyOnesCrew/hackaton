@@ -156,7 +156,7 @@ export function getMockExerciseStore() {
   return mockExerciseStore;
 }
 
-const MOCK_IMPORTS: ImportJobSummary[] = [
+let mockImportStore: ImportJobSummary[] = [
   {
     id: "imp-3",
     filename: "calculo-unidad-3.xml",
@@ -164,6 +164,10 @@ const MOCK_IMPORTS: ImportJobSummary[] = [
     createdAt: "2026-07-16T09:30:00Z",
     createdCount: 12,
     rejectedCount: 1,
+    report: {
+      created: 12,
+      rejected: [{ index: 3, title: "Ejercicio X", errors: ["topic slug 'foo' no existe"] }],
+    },
   },
   {
     id: "imp-2",
@@ -180,8 +184,11 @@ const MOCK_IMPORTS: ImportJobSummary[] = [
     createdAt: "2026-07-14T11:00:00Z",
     createdCount: 8,
     rejectedCount: 0,
+    report: { created: 8, rejected: [] },
   },
 ];
+
+const mockImportPollTicks = new Map<string, number>();
 
 const MOCK_CONTEXTS: LtiContext[] = [
   {
@@ -210,7 +217,7 @@ function summarizeExercises(exercises: ManagementExercise[]): ContentDashboardSu
   return {
     totalsByStatus,
     totalExercises: exercises.length,
-    recentImports: MOCK_IMPORTS.slice(0, 3),
+    recentImports: mockImportStore.slice(0, 3),
   };
 }
 
@@ -358,8 +365,8 @@ export async function getContentDashboardSummary(): Promise<ContentDashboardSumm
 export async function listImportJobs(page = 1): Promise<Paginated<ImportJobSummary>> {
   if (shouldUseMockApi()) {
     return {
-      data: MOCK_IMPORTS,
-      meta: { page, totalPages: 1, totalCount: MOCK_IMPORTS.length },
+      data: [...mockImportStore],
+      meta: { page, totalPages: 1, totalCount: mockImportStore.length },
     };
   }
   const result = await railsFetch(`/api/v1/management/exercise_imports?page=${page}`, {
@@ -371,7 +378,30 @@ export async function listImportJobs(page = 1): Promise<Paginated<ImportJobSumma
 
 export async function getImportJob(id: string): Promise<ImportJobSummary | null> {
   if (shouldUseMockApi()) {
-    return MOCK_IMPORTS.find((j) => j.id === id) ?? null;
+    const job = mockImportStore.find((j) => j.id === id);
+    if (!job) return null;
+    if (job.status === "pending" || job.status === "processing") {
+      const ticks = (mockImportPollTicks.get(id) ?? 0) + 1;
+      mockImportPollTicks.set(id, ticks);
+      if (ticks === 1) {
+        job.status = "processing";
+      } else {
+        job.status = "completed";
+        job.createdCount = 2;
+        job.rejectedCount = 1;
+        job.report = {
+          created: 2,
+          rejected: [
+            {
+              index: 2,
+              title: "Ejercicio rechazado de ejemplo",
+              errors: ["topic slug 'desconocido' no existe"],
+            },
+          ],
+        };
+      }
+    }
+    return structuredClone(job);
   }
   try {
     const result = await railsFetch(`/api/v1/management/exercise_imports/${id}`, {
@@ -383,6 +413,80 @@ export async function getImportJob(id: string): Promise<ImportJobSummary | null>
     if (error instanceof RailsRequestError && error.status === 404) return null;
     throw error;
   }
+}
+
+/** Create an import job from multipart file. Throws RailsRequestError on 422. */
+export async function createImportJob(file: File): Promise<ImportJobSummary> {
+  if (shouldUseMockApi()) {
+    const name = file.name.toLowerCase();
+    if (!name.endsWith(".xml")) {
+      throw new RailsRequestError(422, {
+        error: {
+          code: "validation_failed",
+          message: "Archivo XML inválido.",
+          details: [{ field: "file", message: "Solo se aceptan archivos .xml." }],
+        },
+      });
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      throw new RailsRequestError(422, {
+        error: {
+          code: "validation_failed",
+          message: "Archivo demasiado grande.",
+          details: [{ field: "file", message: "El máximo es 5 MB." }],
+        },
+      });
+    }
+    const text = await file.text();
+    if (!text.includes("<exerciseBank") || text.includes("INVALID_XSD")) {
+      throw new RailsRequestError(422, {
+        error: {
+          code: "validation_failed",
+          message: "El XML no valida contra el XSD.",
+          details: [{ field: "file", message: "Falta el elemento raíz exerciseBank o el esquema es inválido." }],
+        },
+      });
+    }
+    const job: ImportJobSummary = {
+      id: `imp-${Date.now()}`,
+      filename: file.name,
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
+    mockImportStore = [job, ...mockImportStore];
+    mockImportPollTicks.set(job.id, 0);
+    return structuredClone(job);
+  }
+
+  const token = await getSessionToken();
+  if (!token) throw new Response("Unauthorized", { status: 401 });
+  const form = new FormData();
+  form.append("file", file);
+  const base = process.env.RAILS_API_URL ?? "http://127.0.0.1:3000";
+  let response: Response;
+  try {
+    response = await fetch(`${base}/api/v1/management/exercise_imports`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+      body: form,
+      cache: "no-store",
+    });
+  } catch {
+    throw new RailsRequestError(503, {
+      error: { code: "upstream_unavailable", message: "No se pudo conectar con la API." },
+    });
+  }
+  if (!response.ok) {
+    let body = null;
+    try {
+      body = await response.json();
+    } catch {
+      body = null;
+    }
+    throw new RailsRequestError(response.status, body);
+  }
+  const result = (await response.json()) as { data: ImportJobSummary };
+  return result.data;
 }
 
 export async function listLtiContexts(): Promise<LtiContext[]> {

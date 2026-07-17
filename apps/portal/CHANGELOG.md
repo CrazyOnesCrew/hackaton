@@ -4,6 +4,11 @@ All notable changes to the portal are documented here (Keep a Changelog format).
 The in-app "What's new" modal is driven by `src/lib/changelog.ts`; keep both in
 sync with `package.json`'s version.
 
+## [1.3.0] - 2026-07-16
+
+### Added
+- Importación XML con dropzone, polling de estado y reporte de creados/rechazados.
+
 ## [1.2.0] - 2026-07-16
 
 ### Added

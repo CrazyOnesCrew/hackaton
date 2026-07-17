@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exerciseBank version="1.0">
+  <exercise topicSlug="derivadas" difficulty="easy">
+    <title>Derivada de una potencia</title>
+    <statement>Calcula la derivada de $f(x) = x^3$.</statement>
+    <steps>
+      <step phase="identification" answerType="single_choice" maxScore="5">
+        <prompt>¿Qué regla aplicarías primero?</prompt>
+        <options>
+          <option id="a" correct="true">Regla de la potencia</option>
+          <option id="b">Regla del producto</option>
+        </options>
+        <hints>
+          <hint penalty="10">Recuerda: la derivada de $x^n$ es $n x^{n-1}$.</hint>
+        </hints>
+      </step>
+      <step phase="procedure" answerType="expression" maxScore="15">
+        <prompt>Escribe la derivada.</prompt>
+        <correctAnswer expression="3x^2"/>
+      </step>
+    </steps>
+  </exercise>
+  <exercise topicSlug="integrales" difficulty="medium">
+    <title>Integral definida simple</title>
+    <statement>Evalúa $\int_0^2 x\,dx$.</statement>
+    <steps>
+      <step phase="procedure" answerType="numeric" tolerance="0.01" maxScore="20">
+        <prompt>Resultado numérico</prompt>
+        <correctAnswer value="2"/>
+      </step>
+    </steps>
+  </exercise>
+</exerciseBank>

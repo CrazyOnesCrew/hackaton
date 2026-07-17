@@ -33,6 +33,14 @@ export const CHANGE_KIND_META: Record<ChangeKind, { label: string; color: string
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "1.3.0",
+    date: "2026-07-16",
+    type: "minor",
+    changes: [
+      { kind: "added", text: "Importación XML con dropzone, polling de estado y reporte de creados/rechazados." },
+    ],
+  },
+  {
     version: "1.2.0",
     date: "2026-07-16",
     type: "minor",
