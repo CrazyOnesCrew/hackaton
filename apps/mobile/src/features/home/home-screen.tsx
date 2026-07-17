@@ -10,6 +10,7 @@ import {
   CALCULUS_TOPICS,
   countExercisesByTopic,
 } from '@/features/study/calculus-exercises';
+import { readLtiContext } from '@/app/lti-entry';
 import { WebShell } from '@/features/study/web-shell';
 
 function TopicCard({
@@ -55,6 +56,7 @@ function TopicCard({
 
 export function HomeScreen() {
   const router = useRouter();
+  const lti = React.useMemo(() => readLtiContext(), []);
 
   const openTopic = (topicId: string) => {
     router.push(`/(app)/practice/${topicId}` as never);
@@ -81,6 +83,15 @@ export function HomeScreen() {
           <Text className="font-lato-black text-center text-3xl/9 text-on-surface">
             Cálculo
           </Text>
+          {lti?.name
+            ? (
+                <Text className="font-lato-bold mt-2 text-center text-base text-primary">
+                  Sesión LTI:
+                  {' '}
+                  {lti.name}
+                </Text>
+              )
+            : null}
           <Text className="font-lato-bold mt-2 text-center text-base text-accent">
             {totalExercises}
             {' '}

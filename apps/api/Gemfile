@@ -70,3 +70,6 @@ gem "anthropic", "~> 1.0"
 
 # HTTP client for external LLM/HTTP APIs.
 gem "faraday", "~> 2.0"
+
+# Basic LTI 1.1 launch validation (Moodle external tool).
+gem "ims-lti", "~> 2.3"

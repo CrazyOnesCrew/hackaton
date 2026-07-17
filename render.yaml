@@ -1,18 +1,69 @@
-databases: []
+databases:
+  - name: hackaton-db
+    plan: free
+    region: oregon
 
 services:
+  - type: web
+    name: hackaton-api
+    runtime: ruby
+    region: oregon
+    plan: free
+    rootDir: apps/api
+    branch: master
+    buildCommand: bundle install && bundle exec bootsnap precompile -j 1 --gemfile
+    startCommand: bundle exec rails db:prepare && bundle exec rails server -b 0.0.0.0 -p $PORT
+    healthCheckPath: /up
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: APP_WEB_URL
+        value: https://hackaton-calculo.onrender.com
+      - key: LTI_CONSUMER_KEY
+        value: hackaton_local
+      - key: LTI_SHARED_SECRET
+        value: hackaton_render_lti_secret
+      - key: LTI_LAUNCH_URL
+        value: https://hackaton-api.onrender.com/lti/launch
+      - key: LTI_DEV_SKIP_VALIDATION
+        value: "true"
+      - key: DB_HOST
+        fromDatabase:
+          name: hackaton-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: hackaton-db
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: hackaton-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: hackaton-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: hackaton-db
+          property: database
+
   - type: web
     name: hackaton-calculo
     runtime: static
     rootDir: apps/mobile
-    buildCommand: HUSKY=0 CI=1 pnpm install && EXPO_PUBLIC_APP_ENV=production EXPO_PUBLIC_API_URL=https://example.com EXPO_PUBLIC_VAR_NUMBER=10 EXPO_PUBLIC_VAR_BOOL=true pnpm exec expo export --platform web
+    branch: master
+    buildCommand: HUSKY=0 CI=1 pnpm install && EXPO_PUBLIC_APP_ENV=production EXPO_PUBLIC_API_URL=https://hackaton-api.onrender.com EXPO_PUBLIC_VAR_NUMBER=10 EXPO_PUBLIC_VAR_BOOL=true pnpm exec expo export --platform web
     staticPublishPath: dist
-    pullRequestPreviewsEnabled: true
     envVars:
       - key: EXPO_PUBLIC_APP_ENV
         value: production
       - key: EXPO_PUBLIC_API_URL
-        value: https://example.com
+        value: https://hackaton-api.onrender.com
       - key: EXPO_PUBLIC_VAR_NUMBER
         value: "10"
       - key: EXPO_PUBLIC_VAR_BOOL

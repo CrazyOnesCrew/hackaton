@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # Liveness / readiness probe used by load balancers and uptime checks.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # LTI 1.0/1.1 (Moodle external tool) — POST from LMS, redirect into student web app.
+  post "lti/launch", to: "lti/launch#create"
+
   namespace :api do
     namespace :v1 do
       # Basic API metadata — a generic example endpoint for the template.
