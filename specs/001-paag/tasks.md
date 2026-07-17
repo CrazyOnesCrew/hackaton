@@ -32,7 +32,7 @@ Guías de arranque por dev: [`team/`](./team/).
 
 ## Fase E01 — Dominio y banco de ejercicios (Dev A; desbloquea B y C vía contratos)
 
-- [ ] PAAG-101 [A] Modelos y migraciones del banco (`Subject/Topic/Exercise/ExerciseStep/Hint`) + seeds — [ticket](./tickets/PAAG-101-modelos-banco.md)
+- [x] PAAG-101 [A] Modelos y migraciones del banco (`Subject/Topic/Exercise/ExerciseStep/Hint`) + seeds — [ticket](./tickets/PAAG-101-modelos-banco.md)
 - [ ] PAAG-102 [A] Endpoints públicos de lectura de contenido — [ticket](./tickets/PAAG-102-endpoints-contenido-publico.md)
 - [ ] PAAG-103 [P] [A] Endpoints de gestión (`/management/exercises`) — [ticket](./tickets/PAAG-103-endpoints-gestion.md)
 

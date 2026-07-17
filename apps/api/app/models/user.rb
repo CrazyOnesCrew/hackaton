@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: users
+# Database name: primary
+#
+#  id                    :bigint           not null, primary key
+#  deleted_at            :datetime
+#  display_name          :string           not null
+#  email                 :string           not null
+#  failed_login_attempts :integer          default(0), not null
+#  password_digest       :string           not null
+#  role                  :integer          default("member"), not null
+#  status                :string           default("active"), not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_deleted_at  (deleted_at)
+#  index_users_on_email       (email) UNIQUE
+#
 class User < ApplicationRecord
   include Discardable
 
@@ -10,6 +31,7 @@ class User < ApplicationRecord
 
   has_secure_password
   has_many :sessions, dependent: :destroy
+  has_many :exercise_imports, dependent: :restrict_with_exception
 
   before_validation :normalize_email
 

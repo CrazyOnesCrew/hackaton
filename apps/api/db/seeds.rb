@@ -18,4 +18,6 @@ demo_users.each do |attrs|
   puts "Seeded #{user.role}: #{user.email}"
 end
 
+load Rails.root.join("db/seeds/content_bank.rb")
+
 puts "Seed complete: #{User.count} user(s)."

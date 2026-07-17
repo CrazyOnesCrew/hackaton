@@ -6,6 +6,7 @@ Dir[Rails.root.join("test/support/**/*.rb")].sort.each { |file| require file }
 
 class ActiveSupport::TestCase
   include AuthTestHelper
+  include ContentBankTestHelper
 
   # Keep the default gate deterministic locally; CI can opt into more workers.
   parallelize(workers: ENV.fetch("PARALLEL_WORKERS", 1).to_i)
