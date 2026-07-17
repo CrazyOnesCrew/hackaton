@@ -31,10 +31,10 @@ Protocolo esperado: **implementación → QA adversarial → merge a master**.
 | PAAG-001, 002 | Sí | **HECHO** (backfill 2026-07-16) | APROBADO / APROBADO CON OBS.; ver `team/STATUS.md` |
 | PAAG-301, 302 | Sí | **HECHO** (backfill 2026-07-16) | APROBADO CON OBS. (rol `auxiliary` real pendiente de PAAG-004); tests Vitest añadidos |
 | PAAG-501 | Sí (`bdde685` fixes) | **HECHO** — 2 blockers (`database.yml` multi-DB Solid Cache/Queue/Cable; `NEXT_BASE_PATH` en fetch/anchors del portal); fixes en `bdde685` | Smoke `docker compose -f docker-compose.production.yml up` en prod **sigue pendiente** (falta `master.key` / `RAILS_MASTER_KEY` local; **nunca en git**) |
-| PAAG-303 | Sí (`dac02ca`) | No documentado / pendiente | Código en master; no reportar “cerrado con QA” |
-| PAAG-304 | Sí (`16afd25`) | No documentado / pendiente | Código en master; no reportar “cerrado con QA” |
+| PAAG-303 | Sí (`dac02ca`) | **HECHO** 2026-07-16 — APROBADO | Blocker BOM `package.json` + tests Vitest (import/reporte/validación/roles); ver `team/STATUS.md` |
+| PAAG-304 | Sí (`16afd25`) | **HECHO** 2026-07-16 — APROBADO | Blocker BOM `package.json` + tests Vitest (selector/CSV/empty/error/roles); ver `team/STATUS.md` |
 
-**No reportar Dev C como “hecho”** mientras falte smoke prod de 501 y QA documentado de 303/304. Backfill QA 001–302 **completado** (2026-07-16). QA adversarial de 501 ya está hecho (fixes mergeados). Ver checklist en [`team/STATUS.md`](./team/STATUS.md).
+**No reportar Dev C como “hecho” al 100%** mientras falte smoke prod de 501. Código Dev C (001–304, 501) en master (≈100%). QA adversarial 001–304 + 501 **hecho**. Ver checklist en [`team/STATUS.md`](./team/STATUS.md).
 
 ## Fase E00 — Fundaciones (bloqueante para todo)
 

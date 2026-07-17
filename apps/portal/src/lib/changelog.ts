@@ -33,6 +33,21 @@ export const CHANGE_KIND_META: Record<ChangeKind, { label: string; color: string
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "1.4.2",
+    date: "2026-07-16",
+    type: "patch",
+    changes: [
+      {
+        kind: "fixed",
+        text: "Eliminado BOM UTF-8 de `package.json` que rompía PostCSS/Vitest/build.",
+      },
+      {
+        kind: "added",
+        text: "Cobertura Vitest adversarial PAAG-303/304: validación cliente XML/5MB, ayuda XSD, empty states, errores de export CSV y roles `/content/imports` + `/content/grades`.",
+      },
+    ],
+  },
+  {
     version: "1.4.1",
     date: "2026-07-16",
     type: "patch",
