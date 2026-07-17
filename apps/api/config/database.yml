@@ -24,9 +24,24 @@ test:
   <<: *default
   database: <%= ENV.fetch("DB_TEST_NAME", "template_test") %>
 
+# Production uses Solid Cache / Solid Queue / Solid Cable — each needs its own
+# Postgres database (see config/cache.yml, solid_queue.connects_to, cable.yml).
 production:
-  <<: *default
-  host: <%= ENV["DB_HOST"] %>
-  database: <%= ENV["DB_NAME"] %>
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
+  primary: &primary_production
+    <<: *default
+    host: <%= ENV["DB_HOST"] %>
+    database: <%= ENV["DB_NAME"] %>
+    username: <%= ENV["DB_USERNAME"] %>
+    password: <%= ENV["DB_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: <%= ENV.fetch("DB_CACHE_NAME") { "#{ENV["DB_NAME"]}_cache" } %>
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: <%= ENV.fetch("DB_QUEUE_NAME") { "#{ENV["DB_NAME"]}_queue" } %>
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: <%= ENV.fetch("DB_CABLE_NAME") { "#{ENV["DB_NAME"]}_cable" } %>
+    migrations_paths: db/cable_migrate

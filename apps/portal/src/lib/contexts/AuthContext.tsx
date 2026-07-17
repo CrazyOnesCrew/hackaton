@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
+import { withBasePath } from "@/lib/base-path";
 import type { User } from "@/lib/types";
 
 interface AuthContextValue {
@@ -46,7 +47,7 @@ export function AuthProvider({ children, initialUser }: AuthProviderProps) {
   useEffect(() => {
     if (initialUser !== undefined) return;
     let cancelled = false;
-    fetch("/api/auth/me")
+    fetch(withBasePath("/api/auth/me"))
       .then((r) => (r.ok ? r.json() : { user: null }))
       .then((data) => {
         if (!cancelled) setUser(data.user ?? null);
@@ -65,7 +66,7 @@ export function AuthProvider({ children, initialUser }: AuthProviderProps) {
 
   const login = useCallback(async (email: string, password: string) => {
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch(withBasePath("/api/auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -85,7 +86,7 @@ export function AuthProvider({ children, initialUser }: AuthProviderProps) {
   }, []);
 
   const logout = useCallback(async () => {
-    await fetch("/api/auth/logout", { method: "POST" }).catch(() => undefined);
+    await fetch(withBasePath("/api/auth/logout"), { method: "POST" }).catch(() => undefined);
     setUser(null);
     // The (app) layout resolves auth server-side once per navigation — clearing
     // client state alone doesn't leave the protected page. Force a real

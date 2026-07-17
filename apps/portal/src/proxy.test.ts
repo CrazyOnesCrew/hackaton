@@ -95,6 +95,27 @@ describe("proxy /content protection (auxiliary + admin)", () => {
     );
     expect(response.status).toBe(200);
   });
+
+  it("protects nested content manager routes the same way", () => {
+    for (const path of ["/content/imports", "/content/grades", "/content/exercises/5"]) {
+      const denied = proxy(
+        requestFor(path, {
+          [SESSION_TOKEN_COOKIE]: "sess_abc",
+          [SESSION_ROLE_COOKIE]: "member",
+        }),
+      );
+      expect(denied.status).toBe(307);
+      expect(denied.headers.get("location")).toContain("/access-denied");
+
+      const allowed = proxy(
+        requestFor(path, {
+          [SESSION_TOKEN_COOKIE]: "sess_abc",
+          [SESSION_ROLE_COOKIE]: "auxiliary",
+        }),
+      );
+      expect(allowed.status).toBe(200);
+    }
+  });
 });
 
 describe("proxy /admin protection (admin-only)", () => {

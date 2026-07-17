@@ -8,6 +8,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { Chip } from "@/components/ui/chip";
 import { Button } from "@/components/ui/button";
 import { RowActions } from "@/components/ui/row-actions";
+import { withBasePath } from "@/lib/base-path";
 import type {
   ExerciseDifficulty,
   ExerciseStatus,
@@ -45,7 +46,7 @@ async function fetchExercises(filters: {
   if (filters.topicId) params.set("topicId", filters.topicId);
   if (filters.status) params.set("status", filters.status);
   if (filters.difficulty) params.set("difficulty", filters.difficulty);
-  const res = await fetch(`/api/management/exercises?${params}`, { cache: "no-store" });
+  const res = await fetch(withBasePath(`/api/management/exercises?${params}`), { cache: "no-store" });
   if (!res.ok) throw new Error("No se pudo cargar el banco.");
   const json = (await res.json()) as { data: ManagementExercise[] };
   return json.data;
@@ -90,7 +91,7 @@ export function ExercisesBank({ initial }: { initial: ManagementExercise[] }) {
 
   async function patchStatus(id: string, next: ExerciseStatus) {
     setActionError(null);
-    const res = await fetch(`/api/management/exercises/${id}`, {
+    const res = await fetch(withBasePath(`/api/management/exercises/${id}`), {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: next }),
@@ -109,7 +110,7 @@ export function ExercisesBank({ initial }: { initial: ManagementExercise[] }) {
       return;
     }
     setActionError(null);
-    const res = await fetch(`/api/management/exercises/${id}`, { method: "DELETE" });
+    const res = await fetch(withBasePath(`/api/management/exercises/${id}`), { method: "DELETE" });
     if (!res.ok) {
       setActionError("No se pudo archivar el ejercicio.");
       return;
@@ -128,7 +129,7 @@ export function ExercisesBank({ initial }: { initial: ManagementExercise[] }) {
     [ordered[index], ordered[swap]] = [ordered[swap], ordered[index]];
     const exerciseIds = ordered.map((e) => e.id);
     setActionError(null);
-    const res = await fetch(`/api/management/topics/${row.topicId}/reorder`, {
+    const res = await fetch(withBasePath(`/api/management/topics/${row.topicId}/reorder`), {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ exerciseIds }),

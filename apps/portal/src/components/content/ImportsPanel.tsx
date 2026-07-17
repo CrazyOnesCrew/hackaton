@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { Button } from "@/components/ui/button";
+import { withBasePath } from "@/lib/base-path";
 import type { ImportJobSummary } from "@/lib/paag-types";
 
 const STATUS_LABEL: Record<ImportJobSummary["status"], string> = {
@@ -34,7 +35,7 @@ export function ImportsPanel({ initialJobs }: { initialJobs: ImportJobSummary[] 
   const [polling, setPolling] = useState(false);
 
   const refreshList = useCallback(async () => {
-    const res = await fetch("/api/management/exercise_imports");
+    const res = await fetch(withBasePath("/api/management/exercise_imports"));
     if (!res.ok) return;
     const json = (await res.json()) as { data: ImportJobSummary[] };
     setJobs(json.data);
@@ -45,7 +46,7 @@ export function ImportsPanel({ initialJobs }: { initialJobs: ImportJobSummary[] 
     try {
       for (let i = 0; i < 30; i++) {
         await new Promise((r) => setTimeout(r, 2000));
-        const res = await fetch(`/api/management/exercise_imports/${id}`);
+        const res = await fetch(withBasePath(`/api/management/exercise_imports/${id}`));
         if (!res.ok) break;
         const json = (await res.json()) as { data: ImportJobSummary };
         setSelected(json.data);
@@ -72,7 +73,7 @@ export function ImportsPanel({ initialJobs }: { initialJobs: ImportJobSummary[] 
     try {
       const form = new FormData();
       form.append("file", file);
-      const res = await fetch("/api/management/exercise_imports", {
+      const res = await fetch(withBasePath("/api/management/exercise_imports"), {
         method: "POST",
         body: form,
       });
@@ -104,14 +105,14 @@ export function ImportsPanel({ initialJobs }: { initialJobs: ImportJobSummary[] 
         </p>
         <div className="flex flex-wrap gap-3">
           <a
-            href="/examples/exercise-bank.xsd"
+            href={withBasePath("/examples/exercise-bank.xsd")}
             className="text-sm font-semibold text-primary-strong hover:underline"
             download
           >
             Descargar exercise-bank.xsd
           </a>
           <a
-            href="/examples/exercise-bank-example.xml"
+            href={withBasePath("/examples/exercise-bank-example.xml")}
             className="text-sm font-semibold text-primary-strong hover:underline"
             download
           >

@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   output: "standalone",
   // When served behind the production reverse proxy at /portal (see deploy/Caddyfile).
   basePath: process.env.NEXT_BASE_PATH || undefined,
+  // Expose to the client bundle so raw fetch()/anchors can use withBasePath().
+  env: {
+    NEXT_BASE_PATH: process.env.NEXT_BASE_PATH || "",
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "cdn-ilegpid.nitrocdn.com" },

@@ -20,11 +20,26 @@ implementarlo leyendo solo ese archivo + los documentos que referencia. Formato 
 | **C** | Portal (`apps/portal`) + infra/Docker | PAAG-001, 002, 301–304, 501 |
 
 Guías de arranque por dev: [`team/`](./team/).
+Estado operativo Dev C: [`team/STATUS.md`](./team/STATUS.md).
+
+## Estado de QA (importante al reportar)
+
+Protocolo esperado: **implementación → QA adversarial → merge a master**.
+
+| Ticket(s) | En master | QA adversarial | Nota al reportar |
+|---|---|---|---|
+| PAAG-001, 002 | Sí | **HECHO** (backfill 2026-07-16) | APROBADO / APROBADO CON OBS.; ver `team/STATUS.md` |
+| PAAG-301, 302 | Sí | **HECHO** (backfill 2026-07-16) | APROBADO CON OBS. (rol `auxiliary` real pendiente de PAAG-004); tests Vitest añadidos |
+| PAAG-501 | Sí (`bdde685` fixes) | **HECHO** — 2 blockers (`database.yml` multi-DB Solid Cache/Queue/Cable; `NEXT_BASE_PATH` en fetch/anchors del portal); fixes en `bdde685` | Smoke `docker compose -f docker-compose.production.yml up` en prod **sigue pendiente** (falta `master.key` / `RAILS_MASTER_KEY` local; **nunca en git**) |
+| PAAG-303 | Sí (`dac02ca`) | No documentado / pendiente | Código en master; no reportar “cerrado con QA” |
+| PAAG-304 | Sí (`16afd25`) | No documentado / pendiente | Código en master; no reportar “cerrado con QA” |
+
+**No reportar Dev C como “hecho”** mientras falte smoke prod de 501 y QA documentado de 303/304. Backfill QA 001–302 **completado** (2026-07-16). QA adversarial de 501 ya está hecho (fixes mergeados). Ver checklist en [`team/STATUS.md`](./team/STATUS.md).
 
 ## Fase E00 — Fundaciones (bloqueante para todo)
 
-- [ ] PAAG-001 [C] Identidad del proyecto, variables de entorno y servicio `portal` en Docker Compose — [ticket](./tickets/PAAG-001-fundaciones-envs-compose.md)
-- [ ] PAAG-002 [P] [C] Design tokens del styleguide en el portal (Tailwind 4) — [ticket](./tickets/PAAG-002-design-tokens-portal.md)
+- [x] PAAG-001 [C] Identidad del proyecto, variables de entorno y servicio `portal` en Docker Compose — [ticket](./tickets/PAAG-001-fundaciones-envs-compose.md) *(QA backfill 2026-07-16: APROBADO)*
+- [x] PAAG-002 [P] [C] Design tokens del styleguide en el portal (Tailwind 4) — [ticket](./tickets/PAAG-002-design-tokens-portal.md) *(QA backfill 2026-07-16: APROBADO)*
 - [ ] PAAG-003 [P] [B] Design tokens del styleguide en mobile (Uniwind + fuentes) — [ticket](./tickets/PAAG-003-design-tokens-mobile.md)
 - [ ] PAAG-004 [P] [A] Rol `auxiliary` en `User` — [ticket](./tickets/PAAG-004-rol-auxiliary.md)
 
@@ -72,10 +87,10 @@ Guías de arranque por dev: [`team/`](./team/).
 
 ## Fase E10 — Portal auxiliares (Dev C, mock-first)
 
-- [ ] PAAG-301 [C] Rol `auxiliary` en el portal + navegación del gestor — [ticket](./tickets/PAAG-301-portal-base.md)
-- [ ] PAAG-302 [C] Listado y preview del banco de ejercicios — [ticket](./tickets/PAAG-302-portal-banco.md)
-- [ ] PAAG-303 [C] Carga XML con reporte de importación — [ticket](./tickets/PAAG-303-portal-import-xml.md)
-- [ ] PAAG-304 [P] [C] Export CSV de notas — [ticket](./tickets/PAAG-304-portal-export-csv.md)
+- [x] PAAG-301 [C] Rol `auxiliary` en el portal + navegación del gestor — [ticket](./tickets/PAAG-301-portal-base.md) *(QA backfill 2026-07-16: APROBADO CON OBS. — login real auxiliary bloqueado por PAAG-004)*
+- [x] PAAG-302 [C] Listado y preview del banco de ejercicios — [ticket](./tickets/PAAG-302-portal-banco.md) *(QA backfill 2026-07-16: APROBADO CON OBS.)*
+- [x] PAAG-303 [C] Carga XML con reporte de importación — [ticket](./tickets/PAAG-303-portal-import-xml.md)
+- [x] PAAG-304 [P] [C] Export CSV de notas — [ticket](./tickets/PAAG-304-portal-export-csv.md)
 
 ## Fase E11 — Gamificación backend (Dev A)
 
@@ -83,7 +98,7 @@ Guías de arranque por dev: [`team/`](./team/).
 
 ## Fase E12 — Despliegue (Dev C)
 
-- [ ] PAAG-501 [C] Compose de producción + build web de Expo + reverse proxy + docs — [ticket](./tickets/PAAG-501-despliegue-produccion.md)
+- [x] PAAG-501 [C] Compose de producción + build web de Expo + reverse proxy + docs — [ticket](./tickets/PAAG-501-despliegue-produccion.md)
 
 ## Dependencias
 
