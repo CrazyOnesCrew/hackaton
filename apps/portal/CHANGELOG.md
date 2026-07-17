@@ -4,6 +4,11 @@ All notable changes to the portal are documented here (Keep a Changelog format).
 The in-app "What's new" modal is driven by `src/lib/changelog.ts`; keep both in
 sync with `package.json`'s version.
 
+## [1.3.1] - 2026-07-16
+
+### Fixed
+- Client `fetch`/anchors respect `NEXT_BASE_PATH` so auth and content APIs work under `/portal`.
+
 ## [1.3.0] - 2026-07-16
 
 ### Added

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormField, Input } from "@/components/ui/form";
+import { withBasePath } from "@/lib/base-path";
 import { isPortalRole, roleHome } from "@/lib/navigation";
 import { APP_VERSION } from "@/lib/constants";
 
@@ -20,7 +21,7 @@ export default function LoginScreen() {
     setSubmitting(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch(withBasePath("/api/auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

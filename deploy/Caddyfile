@@ -20,6 +20,7 @@
 {$CADDY_SITE:http://localhost} {
 	encode gzip
 
+	# Trailing * required: Caddy path matchers are exact unless wildcarded.
 	handle /api* {
 		reverse_proxy api:80
 	}

@@ -33,6 +33,17 @@ export const CHANGE_KIND_META: Record<ChangeKind, { label: string; color: string
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "1.3.1",
+    date: "2026-07-16",
+    type: "patch",
+    changes: [
+      {
+        kind: "fixed",
+        text: "Client fetch/anchors respect `NEXT_BASE_PATH` so auth and content APIs work under `/portal`.",
+      },
+    ],
+  },
+  {
     version: "1.3.0",
     date: "2026-07-16",
     type: "minor",

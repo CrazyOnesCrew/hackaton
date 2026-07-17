@@ -119,7 +119,7 @@ if the portal must call it from outside the compose network.
    ```
 
 The API entrypoint runs `bin/rails db:prepare` on first boot (creates/migrates
-the primary and queue databases). You do not run migrations by hand unless you
+the primary, queue, cache, and cable databases used by Solid Queue / Cache / Cable). You do not run migrations by hand unless you
 are recovering from a failed deploy.
 
 ## Cloud (any VM)
