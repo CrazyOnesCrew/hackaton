@@ -20,11 +20,26 @@ implementarlo leyendo solo ese archivo + los documentos que referencia. Formato 
 | **C** | Portal (`apps/portal`) + infra/Docker | PAAG-001, 002, 301–304, 501 |
 
 Guías de arranque por dev: [`team/`](./team/).
+Estado operativo Dev C: [`team/STATUS.md`](./team/STATUS.md).
+
+## Estado de QA (importante al reportar)
+
+Protocolo esperado: **implementación → QA adversarial → merge a master**.
+
+| Ticket(s) | En master | QA adversarial | Nota al reportar |
+|---|---|---|---|
+| PAAG-001, 002 | Sí | Falló (API limit); mergeados igual | Backfill QA en curso o pendiente (`feature/paag-qa-backfill-001-302`) |
+| PAAG-301, 302 | Sí | No corrido (cola recovery); pusheados igual | Backfill pendiente / en curso |
+| PAAG-501 | Sí | Config/builds OK; no sustituye QA adversarial | Smoke `docker compose -f docker-compose.production.yml up` en prod **pendiente** (requiere `RAILS_MASTER_KEY` local; **nunca en git**) |
+| PAAG-303 | Sí (`dac02ca`) | No documentado / pendiente | Código en master; no reportar “cerrado con QA” |
+| PAAG-304 | No | — | WIP / rama `feature/paag-304-portal-export`; no está en master |
+
+**No reportar Dev C como “hecho”** mientras falte backfill QA (001–302), QA/smoke de 501, merge+QA de 304, y QA documentado de 303. Ver checklist en [`team/STATUS.md`](./team/STATUS.md).
 
 ## Fase E00 — Fundaciones (bloqueante para todo)
 
-- [ ] PAAG-001 [C] Identidad del proyecto, variables de entorno y servicio `portal` en Docker Compose — [ticket](./tickets/PAAG-001-fundaciones-envs-compose.md)
-- [ ] PAAG-002 [P] [C] Design tokens del styleguide en el portal (Tailwind 4) — [ticket](./tickets/PAAG-002-design-tokens-portal.md)
+- [x] PAAG-001 [C] Identidad del proyecto, variables de entorno y servicio `portal` en Docker Compose — [ticket](./tickets/PAAG-001-fundaciones-envs-compose.md)
+- [x] PAAG-002 [P] [C] Design tokens del styleguide en el portal (Tailwind 4) — [ticket](./tickets/PAAG-002-design-tokens-portal.md)
 - [ ] PAAG-003 [P] [B] Design tokens del styleguide en mobile (Uniwind + fuentes) — [ticket](./tickets/PAAG-003-design-tokens-mobile.md)
 - [ ] PAAG-004 [P] [A] Rol `auxiliary` en `User` — [ticket](./tickets/PAAG-004-rol-auxiliary.md)
 
@@ -72,9 +87,9 @@ Guías de arranque por dev: [`team/`](./team/).
 
 ## Fase E10 — Portal auxiliares (Dev C, mock-first)
 
-- [ ] PAAG-301 [C] Rol `auxiliary` en el portal + navegación del gestor — [ticket](./tickets/PAAG-301-portal-base.md)
-- [ ] PAAG-302 [C] Listado y preview del banco de ejercicios — [ticket](./tickets/PAAG-302-portal-banco.md)
-- [ ] PAAG-303 [C] Carga XML con reporte de importación — [ticket](./tickets/PAAG-303-portal-import-xml.md)
+- [x] PAAG-301 [C] Rol `auxiliary` en el portal + navegación del gestor — [ticket](./tickets/PAAG-301-portal-base.md)
+- [x] PAAG-302 [C] Listado y preview del banco de ejercicios — [ticket](./tickets/PAAG-302-portal-banco.md)
+- [x] PAAG-303 [C] Carga XML con reporte de importación — [ticket](./tickets/PAAG-303-portal-import-xml.md)
 - [ ] PAAG-304 [P] [C] Export CSV de notas — [ticket](./tickets/PAAG-304-portal-export-csv.md)
 
 ## Fase E11 — Gamificación backend (Dev A)
@@ -83,7 +98,7 @@ Guías de arranque por dev: [`team/`](./team/).
 
 ## Fase E12 — Despliegue (Dev C)
 
-- [ ] PAAG-501 [C] Compose de producción + build web de Expo + reverse proxy + docs — [ticket](./tickets/PAAG-501-despliegue-produccion.md)
+- [x] PAAG-501 [C] Compose de producción + build web de Expo + reverse proxy + docs — [ticket](./tickets/PAAG-501-despliegue-produccion.md)
 
 ## Dependencias
 
