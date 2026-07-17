@@ -3,9 +3,8 @@
 @import 'uniwind';
 
 /*
- * Design tokens for the template. A neutral blue design system:
- * brand blue (#2F5DED), cool light background (#F4F6F9), white cards.
- * Token names are semantic — customize the hex values for your own brand.
+ * Design tokens — PAAG styleguide:
+ * lavanda primario (#B9A5F5), ámbar acento (#F5A623), fondos pastel, cards 24–28px.
  */
 @theme {
   --font-family-sans: 'Lato', ui-sans-serif, system-ui, sans-serif;
@@ -13,94 +12,95 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
-  /* Brand / semantic palette (blue, STYLE.md) */
-  --color-primary: #2f5ded;
-  --color-primary-strong: #2748c2;
-  --color-primary-container: #eaf0ff;
-  --color-brand: #2f5ded;
-  --color-brand-soft: #eaf0ff;
+  /* Brand / semantic palette (PAAG pastel) */
+  --color-primary: #b9a5f5;
+  --color-primary-strong: #8b74e8;
+  --color-primary-soft: #ede8fb;
+  --color-primary-container: #ede8fb;
+  --color-brand: #b9a5f5;
+  --color-brand-soft: #ede8fb;
   --color-brand-foreground: #ffffff;
-  --color-surface-tint: #2f5ded;
+  --color-surface-tint: #b9a5f5;
 
-  /* AI accent — brand-led (blue) */
-  --color-ai-accent: #2f5ded;
-  --color-ai-accent-soft: #eaf0ff;
+  /* AI accent — ámbar */
+  --color-ai-accent: #f5a623;
+  --color-ai-accent-soft: #fdf0da;
 
-  /* Brand secondary — navy (STYLE.md nav/dark accent) */
-  --color-secondary: #14224a;
-  --color-secondary-container: #eaf0ff;
+  /* Brand secondary */
+  --color-secondary: #1f2430;
+  --color-secondary-container: #ede8fb;
 
-  /* Brand accent / highlight — folded into brand blue (STYLE.md defines no separate hue) */
-  --color-accent: #2f5ded;
-  --color-accent-soft: #eaf0ff;
+  /* Brand accent / highlight — ámbar */
+  --color-accent: #f5a623;
+  --color-accent-soft: #fdf0da;
 
   /* Surfaces / background */
   --color-surface: #ffffff;
   --color-surface-card: #ffffff;
   --color-surface-raised: #ffffff;
-  --color-surface-overlay: rgba(28, 30, 35, 0.48);
-  --color-surface-alt: #f4f6f9;
-  --color-soft-surface: #f4f6f9;
-  --color-background: #f4f6f9;
-  --color-surface-base: #f4f6f9;
+  --color-surface-overlay: rgba(31, 36, 48, 0.48);
+  --color-surface-alt: #f5f6fa;
+  --color-soft-surface: #f5f6fa;
+  --color-background: #f5f6fa;
+  --color-surface-base: #f5f6fa;
   --color-pure-white: #ffffff;
-  --color-sky-blue: #eaf0ff;
-  --color-sky-soft: #eaf0ff;
+  --color-sky-blue: #ede8fb;
+  --color-sky-soft: #ede8fb;
 
   /* Text */
-  --color-charcoal: #1c1e23;
-  --color-foreground: #1c1e23;
-  --color-text-primary: #1c1e23;
-  --color-text-secondary: #74798a;
-  --color-text-muted: #74798a;
-  --color-on-surface: #1c1e23;
-  --color-on-surface-variant: #74798a;
-  --color-slate-gray: #74798a;
-  --color-muted-foreground: #74798a;
+  --color-charcoal: #1f2430;
+  --color-foreground: #1f2430;
+  --color-text-primary: #1f2430;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #6b7280;
+  --color-on-surface: #1f2430;
+  --color-on-surface-variant: #6b7280;
+  --color-slate-gray: #6b7280;
+  --color-muted-foreground: #6b7280;
 
   /* Feedback (single semantic values) */
-  --color-info: #2f5ded;
-  --color-info-soft: #eaf0ff;
+  --color-info: #8b74e8;
+  --color-info-soft: #ede8fb;
   --color-danger: #eb5757;
   --color-danger-soft: #fdecec;
-  --color-warning: #f59e0b;
-  --color-warning-soft: #fef3c7;
+  --color-warning: #f5a623;
+  --color-warning-soft: #fdf0da;
 
-  /* Legacy accent tokens (remapped to the new identity for compatibility) */
-  --color-pink: #2f5ded;
-  --color-pink-soft: #eaf0ff;
-  --color-mustard: #2f5ded;
-  --color-mustard-soft: #eaf0ff;
-  --color-terracotta: #14224a;
-  --color-jade: #2f5ded;
-  --color-maize: #2f5ded;
-  --color-tertiary: #14224a;
+  /* Legacy accent tokens (remapped to PAAG) */
+  --color-pink: #b9a5f5;
+  --color-pink-soft: #ede8fb;
+  --color-mustard: #f5a623;
+  --color-mustard-soft: #fdf0da;
+  --color-terracotta: #1f2430;
+  --color-jade: #8b74e8;
+  --color-maize: #f5a623;
+  --color-tertiary: #1f2430;
 
   /* Borders / outlines / containers */
-  --color-border-subtle: #e5e7eb;
-  --color-surface-variant: #e5e7eb;
-  --color-surface-container: #f4f6f9;
-  --color-surface-container-high: #eaf0ff;
+  --color-border-subtle: #eceef4;
+  --color-surface-variant: #eceef4;
+  --color-surface-container: #f5f6fa;
+  --color-surface-container-high: #ede8fb;
   --color-surface-container-low: #fafbff;
-  --color-outline: #74798a;
-  --color-outline-variant: #e5e7eb;
-  --color-inverse-surface: #14224a;
-  --color-primary-fixed: #cddaff;
-  --color-primary-fixed-dim: #9db6fb;
+  --color-outline: #6b7280;
+  --color-outline-variant: #eceef4;
+  --color-inverse-surface: #1f2430;
+  --color-primary-fixed: #d8ccf9;
+  --color-primary-fixed-dim: #b9a5f5;
   --color-on-primary: #ffffff;
-  --color-on-primary-fixed: #14224a;
+  --color-on-primary-fixed: #1f2430;
 
-  /* Primary scale (blue #2F5DED) */
-  --color-primary-50: #eaf0ff;
-  --color-primary-100: #cddaff;
-  --color-primary-200: #9db6fb;
-  --color-primary-300: #6f92f6;
-  --color-primary-400: #4c73ee;
-  --color-primary-500: #2f5ded;
-  --color-primary-600: #2748c2;
-  --color-primary-700: #1f3899;
-  --color-primary-800: #182a70;
-  --color-primary-900: #14224a;
+  /* Primary scale (lavanda #B9A5F5) */
+  --color-primary-50: #ede8fb;
+  --color-primary-100: #e0d7fa;
+  --color-primary-200: #d8ccf9;
+  --color-primary-300: #b9a5f5;
+  --color-primary-400: #a08eef;
+  --color-primary-500: #8b74e8;
+  --color-primary-600: #7460d4;
+  --color-primary-700: #5c4ab3;
+  --color-primary-800: #46378a;
+  --color-primary-900: #1f2430;
 
   /* Charcoal palette */
   --color-charcoal-50: #f2f2f2;
@@ -166,11 +166,11 @@
 
   /* Semantic aliases */
   --color-card: #ffffff;
-  --color-card-foreground: #1c1e23;
-  --color-muted: #f4f6f9;
-  --color-border: #e5e7eb;
-  --color-input: #f4f6f9;
-  --color-ring: #2f5ded;
+  --color-card-foreground: #1f2430;
+  --color-muted: #f5f6fa;
+  --color-border: #eceef4;
+  --color-input: #f5f6fa;
+  --color-ring: #b9a5f5;
   --color-destructive: #eb5757;
   --color-destructive-foreground: #ffffff;
 
@@ -182,12 +182,12 @@
   --spacing-stack-lg: 2rem;
   --spacing-gutter: 1rem;
 
-  /* Radius (semantic scale) */
-  --radius-sm: 0.5rem;      /* 8  — chips, inputs, small controls */
-  --radius-md: 0.75rem;     /* 12 — buttons, list rows */
-  --radius-lg: 1rem;        /* 16 — standard cards */
-  --radius-xl: 1.25rem;     /* 20 — feed / hero cards */
-  --radius-2xl: 1.75rem;    /* 28 — large media cards, sheets */
+  /* Radius (semantic scale — PAAG generous cards) */
+  --radius-sm: 0.625rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.75rem;
   --radius-pill: 999px;
 
   /* Shadows (soft elevation, not borders) */
