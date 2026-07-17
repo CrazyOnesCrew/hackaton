@@ -32,9 +32,9 @@ Protocolo esperado: **implementación → QA adversarial → merge a master**.
 | PAAG-301, 302 | Sí | No corrido (cola recovery); pusheados igual | Backfill pendiente / en curso |
 | PAAG-501 | Sí (`bdde685` fixes) | **HECHO** — 2 blockers (`database.yml` multi-DB Solid Cache/Queue/Cable; `NEXT_BASE_PATH` en fetch/anchors del portal); fixes en `bdde685` | Smoke `docker compose -f docker-compose.production.yml up` en prod **sigue pendiente** (falta `master.key` / `RAILS_MASTER_KEY` local; **nunca en git**) |
 | PAAG-303 | Sí (`dac02ca`) | No documentado / pendiente | Código en master; no reportar “cerrado con QA” |
-| PAAG-304 | No | — | WIP / rama `feature/paag-304-portal-export`; no está en master |
+| PAAG-304 | Sí (`16afd25`) | No documentado / pendiente | Código en master; no reportar “cerrado con QA” |
 
-**No reportar Dev C como “hecho”** mientras falte backfill QA (001–302), smoke prod de 501, merge+QA de 304, y QA documentado de 303. QA adversarial de 501 ya está hecho (fixes mergeados). Ver checklist en [`team/STATUS.md`](./team/STATUS.md).
+**No reportar Dev C como “hecho”** mientras falte backfill QA (001–302), smoke prod de 501, y QA adversarial documentado de 303+304. Código Dev C (001–304, 501) está en master (≈100%). QA adversarial de 501 ya está hecho (fixes mergeados). Ver checklist en [`team/STATUS.md`](./team/STATUS.md).
 
 ## Fase E00 — Fundaciones (bloqueante para todo)
 
@@ -90,7 +90,7 @@ Protocolo esperado: **implementación → QA adversarial → merge a master**.
 - [x] PAAG-301 [C] Rol `auxiliary` en el portal + navegación del gestor — [ticket](./tickets/PAAG-301-portal-base.md)
 - [x] PAAG-302 [C] Listado y preview del banco de ejercicios — [ticket](./tickets/PAAG-302-portal-banco.md)
 - [x] PAAG-303 [C] Carga XML con reporte de importación — [ticket](./tickets/PAAG-303-portal-import-xml.md)
-- [ ] PAAG-304 [P] [C] Export CSV de notas — [ticket](./tickets/PAAG-304-portal-export-csv.md)
+- [x] PAAG-304 [P] [C] Export CSV de notas — [ticket](./tickets/PAAG-304-portal-export-csv.md)
 
 ## Fase E11 — Gamificación backend (Dev A)
 

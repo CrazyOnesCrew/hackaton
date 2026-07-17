@@ -2,7 +2,7 @@
 
 **Actualizado**: 2026-07-16  
 **Repo**: https://github.com/CrazyOnesCrew/hackaton  
-**Base verificada**: `origin/master` @ `bdde685` (`git log origin/master --oneline -30`)
+**Base verificada**: `origin/master` @ `16afd25` (`git log origin/master --oneline -30`)
 
 Este archivo es el **reporte operativo** para no omitir gaps de QA ni tickets a medias al decir “Dev C listo”.
 
@@ -10,12 +10,12 @@ Este archivo es el **reporte operativo** para no omitir gaps de QA ni tickets a 
 
 | Ticket | En master | Hash aprox. | QA adversarial | Pendiente al reportar |
 |---|---|---|---|---|
-| PAAG-001 | Sí | `29e80f9` (merge) / `3732173` | Falló (API limit); mergeado igual | Backfill QA |
-| PAAG-002 | Sí | `59fc316` (merge) / `a08c7c1` | Falló (API limit); mergeado igual | Backfill QA |
-| PAAG-301 | Sí | `ab5520a` | No corrido (cola recovery) | Backfill QA |
-| PAAG-302 | Sí | `e36454d` | No corrido (cola recovery) | Backfill QA |
-| PAAG-303 | Sí | `dac02ca` | No documentado | Documentar/correr QA; no dar por cerrado |
-| PAAG-304 | **No** | — (rama local `feature/paag-304-portal-export`) | — | Implementar → QA → merge |
+| PAAG-001 | Sí | `29e80f9` (merge) / `3732173` | Falló (API limit); mergeado igual | Backfill QA pendiente / en curso |
+| PAAG-002 | Sí | `59fc316` (merge) / `a08c7c1` | Falló (API limit); mergeado igual | Backfill QA pendiente / en curso |
+| PAAG-301 | Sí | `ab5520a` | No corrido (cola recovery) | Backfill QA pendiente / en curso |
+| PAAG-302 | Sí | `e36454d` | No corrido (cola recovery) | Backfill QA pendiente / en curso |
+| PAAG-303 | Sí | `dac02ca` | No documentado | Correr QA adversarial; no dar por cerrado |
+| PAAG-304 | Sí | `16afd25` | No documentado | Correr QA adversarial; no dar por cerrado |
 | PAAG-501 | Sí | `bdde685` (fixes) / `da824b7` (merge) / `53a9666` | **HECHO** — 2 blockers; fixes en `bdde685` | Smoke prod `up` (falta `master.key` local); `RAILS_MASTER_KEY` solo local |
 
 ### PAAG-501 — detalle QA
@@ -31,10 +31,10 @@ Smoke `docker compose … up` en prod **sigue pendiente** (falta `master.key` / 
 
 | Métrica | Valor |
 |---|---|
-| Código en `master` | **6 / 7 ≈ 86%** (falta 304) |
-| “Hecho” con protocolo QA | **parcial** (QA 501 hecho + fixes mergeados; smoke prod 501 pendiente; backfill 001–302 pendiente; 303 sin QA documentado; 304 ausente) |
+| Código en `master` | **7 / 7 ≈ 100%** (001, 002, 301, 302, 303, 304, 501) |
+| “Hecho” con protocolo QA | **parcial** (QA 501 hecho + fixes; smoke prod 501 pendiente; backfill 001–302 pendiente / en curso; 303/304 sin QA adversarial aún) |
 
-Usar **86% en master** al hablar de avance de implementación; **no** reportar Dev C como cerrado hasta el checklist de abajo.
+Usar **≈100% en master** al hablar de avance de implementación; **no** reportar Dev C como cerrado hasta el checklist de abajo.
 
 ## Protocolo
 
@@ -44,19 +44,20 @@ implementación → QA adversarial → merge a master
 
 Excepciones ya ocurridas (no repetir al reportar como “validado”):
 
-- **001 / 002**: QA adversarial falló por límite de API; se mergearon igual → backfill en curso o pendiente (`feature/paag-qa-backfill-001-302`).
+- **001 / 002**: QA adversarial falló por límite de API; se mergearon igual → backfill pendiente o en curso (`feature/paag-qa-backfill-001-302`).
 - **301 / 302**: pusheados sin QA adversarial (cola recovery) → backfill pendiente / en curso.
 - **501**: QA adversarial hecho (2 blockers → fixes `bdde685`); falta smoke de producción (`master.key` local).
-- **303**: ya en master; QA no documentado en este reporte.
-- **304**: no en master.
+- **303**: en master (`dac02ca`); sin QA adversarial documentado aún.
+- **304**: en master (`16afd25`); sin QA adversarial documentado aún.
 
 ## Checklist — antes de reportar como hecho
 
-- [ ] QA backfill 001–302 (adversarial o equivalente documentado)
+- [ ] QA backfill 001–302 (adversarial o equivalente documentado) — pendiente / en curso
 - [x] QA 501 (adversarial hecho; fixes mergeados en `bdde685`)
-- [ ] 303 con QA documentado (código ya en master) **y** 304 en master + QA
+- [x] 303 + 304 en master (`dac02ca` / `16afd25`)
+- [ ] QA adversarial 303 + 304 documentado
 - [ ] Smoke prod con `.env.production` local (nunca commitear; `RAILS_MASTER_KEY` fuera de git)
-- [ ] `tasks.md` sincronizado con lo realmente mergeado
+- [x] `tasks.md` sincronizado con lo realmente mergeado (304 marcado)
 - [ ] Compañeros A/B hicieron `git pull` de `master`
 
 ## Riesgos conocidos
