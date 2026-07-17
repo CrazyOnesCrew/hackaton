@@ -2,7 +2,7 @@
 
 **Actualizado**: 2026-07-16  
 **Repo**: https://github.com/CrazyOnesCrew/hackaton  
-**Base verificada**: `origin/master` @ `da824b7` (`git log origin/master --oneline -30`)
+**Base verificada**: `origin/master` @ `bdde685` (`git log origin/master --oneline -30`)
 
 Este archivo es el **reporte operativo** para no omitir gaps de QA ni tickets a medias al decir “Dev C listo”.
 
@@ -16,14 +16,23 @@ Este archivo es el **reporte operativo** para no omitir gaps de QA ni tickets a 
 | PAAG-302 | Sí | `e36454d` | No corrido (cola recovery) | Backfill QA |
 | PAAG-303 | Sí | `dac02ca` | No documentado | Documentar/correr QA; no dar por cerrado |
 | PAAG-304 | **No** | — (rama local `feature/paag-304-portal-export`) | — | Implementar → QA → merge |
-| PAAG-501 | Sí | `da824b7` (merge) / `53a9666` | Config/builds OK; no es QA adversarial completo | Smoke prod `up` + QA; `RAILS_MASTER_KEY` solo local |
+| PAAG-501 | Sí | `bdde685` (fixes) / `da824b7` (merge) / `53a9666` | **HECHO** — 2 blockers; fixes en `bdde685` | Smoke prod `up` (falta `master.key` local); `RAILS_MASTER_KEY` solo local |
+
+### PAAG-501 — detalle QA
+
+QA adversarial **hecho**. Encontró 2 blockers; fixes mergeados en `bdde685`:
+
+1. `database.yml` multi-DB para Solid Cache / Queue / Cable en producción.
+2. `NEXT_BASE_PATH` en `fetch`/anchors del portal.
+
+Smoke `docker compose … up` en prod **sigue pendiente** (falta `master.key` / `RAILS_MASTER_KEY` local; nunca en git).
 
 ## % Dev C
 
 | Métrica | Valor |
 |---|---|
 | Código en `master` | **6 / 7 ≈ 86%** (falta 304) |
-| “Hecho” con protocolo QA | **~0%** de cierre formal (backfill 001–302 pendiente; 303 sin QA documentado; 501 sin smoke prod; 304 ausente) |
+| “Hecho” con protocolo QA | **parcial** (QA 501 hecho + fixes mergeados; smoke prod 501 pendiente; backfill 001–302 pendiente; 303 sin QA documentado; 304 ausente) |
 
 Usar **86% en master** al hablar de avance de implementación; **no** reportar Dev C como cerrado hasta el checklist de abajo.
 
@@ -37,14 +46,14 @@ Excepciones ya ocurridas (no repetir al reportar como “validado”):
 
 - **001 / 002**: QA adversarial falló por límite de API; se mergearon igual → backfill en curso o pendiente (`feature/paag-qa-backfill-001-302`).
 - **301 / 302**: pusheados sin QA adversarial (cola recovery) → backfill pendiente / en curso.
-- **501**: mergeado con config/builds OK; falta smoke de producción.
+- **501**: QA adversarial hecho (2 blockers → fixes `bdde685`); falta smoke de producción (`master.key` local).
 - **303**: ya en master; QA no documentado en este reporte.
 - **304**: no en master.
 
 ## Checklist — antes de reportar como hecho
 
 - [ ] QA backfill 001–302 (adversarial o equivalente documentado)
-- [ ] QA 501 (más allá de config/builds)
+- [x] QA 501 (adversarial hecho; fixes mergeados en `bdde685`)
 - [ ] 303 con QA documentado (código ya en master) **y** 304 en master + QA
 - [ ] Smoke prod con `.env.production` local (nunca commitear; `RAILS_MASTER_KEY` fuera de git)
 - [ ] `tasks.md` sincronizado con lo realmente mergeado

@@ -30,11 +30,11 @@ Protocolo esperado: **implementación → QA adversarial → merge a master**.
 |---|---|---|---|
 | PAAG-001, 002 | Sí | Falló (API limit); mergeados igual | Backfill QA en curso o pendiente (`feature/paag-qa-backfill-001-302`) |
 | PAAG-301, 302 | Sí | No corrido (cola recovery); pusheados igual | Backfill pendiente / en curso |
-| PAAG-501 | Sí | Config/builds OK; no sustituye QA adversarial | Smoke `docker compose -f docker-compose.production.yml up` en prod **pendiente** (requiere `RAILS_MASTER_KEY` local; **nunca en git**) |
+| PAAG-501 | Sí (`bdde685` fixes) | **HECHO** — 2 blockers (`database.yml` multi-DB Solid Cache/Queue/Cable; `NEXT_BASE_PATH` en fetch/anchors del portal); fixes en `bdde685` | Smoke `docker compose -f docker-compose.production.yml up` en prod **sigue pendiente** (falta `master.key` / `RAILS_MASTER_KEY` local; **nunca en git**) |
 | PAAG-303 | Sí (`dac02ca`) | No documentado / pendiente | Código en master; no reportar “cerrado con QA” |
 | PAAG-304 | No | — | WIP / rama `feature/paag-304-portal-export`; no está en master |
 
-**No reportar Dev C como “hecho”** mientras falte backfill QA (001–302), QA/smoke de 501, merge+QA de 304, y QA documentado de 303. Ver checklist en [`team/STATUS.md`](./team/STATUS.md).
+**No reportar Dev C como “hecho”** mientras falte backfill QA (001–302), smoke prod de 501, merge+QA de 304, y QA documentado de 303. QA adversarial de 501 ya está hecho (fixes mergeados). Ver checklist en [`team/STATUS.md`](./team/STATUS.md).
 
 ## Fase E00 — Fundaciones (bloqueante para todo)
 
