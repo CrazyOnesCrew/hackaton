@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // When served behind the production reverse proxy at /portal (see deploy/Caddyfile).
+  basePath: process.env.NEXT_BASE_PATH || undefined,
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "cdn-ilegpid.nitrocdn.com" },
