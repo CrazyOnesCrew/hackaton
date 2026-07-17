@@ -15,6 +15,53 @@ Don't have Ruby yet? The README has step-by-step
 for macOS, Linux, and Windows (via WSL2), including the OS build dependencies the
 `pg` gem needs.
 
+## Everything with Docker Compose (recommended)
+
+The fastest way to a working dev environment. You only need Docker Desktop —
+no local Ruby, PostgreSQL, or Node required for the API and portal. From the
+**repo root**:
+
+```bash
+cp .env.example .env          # first time only; adjust ports if needed
+docker compose up --build     # db + api + worker + portal
+```
+
+This starts, in dependency order:
+
+| Service | What it is | URL / check |
+|---|---|---|
+| `db` | PostgreSQL 17 (healthcheck: `pg_isready`) | host port `${POSTGRES_HOST_PORT:-5433}` |
+| `api` | Rails API — prepares/migrates the DB, then serves (healthcheck: `/up`) | http://localhost:3000/up |
+| `worker` | Solid Queue worker (same image as `api`) | — |
+| `portal` | Next.js portal in dev mode, talking to the API at `http://api:3000` | http://localhost:3001 |
+
+The first `portal` request compiles the app, so give it a minute before the
+page responds. Verify the stack:
+
+```bash
+docker compose ps
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/up   # 200
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3001      # 200
+```
+
+Seed demo users (first time only), then sign in at http://localhost:3001:
+
+```bash
+docker compose exec api bin/rails db:seed   # admin@example.com / member@example.com
+```
+
+Code for both `api` and `portal` is bind-mounted, so edits on the host hot
+reload inside the containers. Common commands:
+
+```bash
+docker compose logs -f portal               # follow a service's logs
+docker compose exec api bin/rails console   # Rails console
+docker compose down                         # stop (keeps DB data)
+```
+
+Mobile (Expo) intentionally runs on the host — see step 3 below. The rest of
+this guide covers running each app **without** Docker.
+
 ## 1. API (`apps/api`)
 
 ```bash

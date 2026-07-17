@@ -20,6 +20,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ARG RAILS_API_URL
 ENV RAILS_API_URL=$RAILS_API_URL
 
+# Path prefix when served behind the production reverse proxy (e.g. /portal).
+ARG NEXT_BASE_PATH=
+ENV NEXT_BASE_PATH=$NEXT_BASE_PATH
+
 RUN npm run build
 
 # Production image

@@ -16,7 +16,7 @@ export default function Home() {
         <div className="glass-panel rounded-2xl p-6 text-center" style={{ border: "1px solid var(--border)" }}>
           <Link
             href="/login"
-            className="inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white transition-opacity btn-accent"
+            className="inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 text-sm font-bold transition-opacity btn-accent"
           >
             Sign in
           </Link>

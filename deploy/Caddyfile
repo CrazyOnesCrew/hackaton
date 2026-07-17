@@ -1,0 +1,43 @@
+# PAAG reverse proxy (path-based routing).
+#
+# Environment (interpolated by Caddy from the compose service env):
+#   CADDY_SITE — site address. Examples:
+#     http://localhost          — local HTTP smoke test (no TLS)
+#     app.example.com           — production hostname (Caddy issues TLS automatically)
+#
+# Path map:
+#   /           → web (Expo student app, static)
+#   /portal*    → portal (Next.js admin)
+#   /api*       → api (Rails)
+#   /lti*       → api (Rails LTI)
+#   /up         → api (Rails health)
+#
+# Subdomain alternative (not enabled by default) — see docs/deployment.md:
+#   app.example.com     → web
+#   portal.example.com  → portal
+#   api.example.com     → api
+
+{$CADDY_SITE:http://localhost} {
+	encode gzip
+
+	handle /api* {
+		reverse_proxy api:80
+	}
+
+	handle /lti* {
+		reverse_proxy api:80
+	}
+
+	handle /up {
+		reverse_proxy api:80
+	}
+
+	# Portal is built with NEXT_BASE_PATH=/portal — do not strip the prefix.
+	handle /portal* {
+		reverse_proxy portal:8080
+	}
+
+	handle {
+		reverse_proxy web:80
+	}
+}

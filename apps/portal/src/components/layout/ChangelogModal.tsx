@@ -46,7 +46,7 @@ export default function ChangelogModal({ onClose }: { onClose: () => void }) {
       >
         {/* Header */}
         <div className="flex items-start gap-3.5 border-b px-6 py-5" style={{ borderColor: "var(--border)" }}>
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-white" style={{ background: "#5b5fef" }}>
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-ink" style={{ background: "var(--color-primary)" }}>
             <Sparkles size={19} />
           </span>
           <div className="min-w-0 flex-1">
@@ -81,7 +81,7 @@ export default function ChangelogModal({ onClose }: { onClose: () => void }) {
                 )}
                 <span
                   className="absolute left-0 top-1.5 h-[7px] w-[7px] rounded-full ring-4"
-                  style={{ background: "#5b5fef", color: "var(--bg-raised)" }}
+                  style={{ background: "var(--color-primary)", color: "var(--bg-raised)" }}
                   aria-hidden
                 />
 
@@ -91,7 +91,7 @@ export default function ChangelogModal({ onClose }: { onClose: () => void }) {
                   </span>
                   <span
                     className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
-                    style={{ background: "var(--accent-bg)", color: "#5b5fef" }}
+                    style={{ background: "var(--accent-bg)", color: "var(--color-primary-strong)" }}
                   >
                     {TYPE_LABEL[entry.type]}
                   </span>

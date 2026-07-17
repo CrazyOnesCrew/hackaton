@@ -28,12 +28,12 @@ export function Checkbox({
         readOnly={!onChange}
         aria-label={ariaLabel}
         className="absolute inset-0 cursor-pointer appearance-none rounded-[5px] border transition-colors"
-        style={{ borderColor: filled ? "#5b5fef" : "var(--input-border)", background: filled ? "#5b5fef" : "var(--bg-raised)" }}
+        style={{ borderColor: filled ? "var(--color-primary)" : "var(--input-border)", background: filled ? "var(--color-primary)" : "var(--bg-raised)" }}
       />
       {indeterminate ? (
-        <Minus size={12} strokeWidth={3} className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white" />
+        <Minus size={12} strokeWidth={3} className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-ink" />
       ) : checked ? (
-        <Check size={12} strokeWidth={3} className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white" />
+        <Check size={12} strokeWidth={3} className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-ink" />
       ) : null}
     </span>
   );

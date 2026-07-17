@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { IBM_Plex_Sans } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 
-// IBM Plex Sans via next/font (self-hosted at build, no layout shift, no extra
+// Nunito via next/font (self-hosted at build, no layout shift, no extra
 // network request) — preferred over a raw Google Fonts <link> CDN.
-const ibmPlex = IBM_Plex_Sans({
-  variable: "--font-plex",
+// Sans redondeada del styleguide; pesos 400/600/700/800.
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function RootLayout({
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${ibmPlex.variable} h-full antialiased`}
+      className={`${nunito.variable} h-full antialiased`}
     >
       <body className="h-full overflow-hidden">
         <Script id="template-theme-bootstrap" strategy="beforeInteractive">

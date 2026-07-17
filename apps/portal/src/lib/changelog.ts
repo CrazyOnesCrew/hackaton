@@ -26,12 +26,36 @@ export interface ChangelogEntry {
 
 export const CHANGE_KIND_META: Record<ChangeKind, { label: string; color: string }> = {
   added: { label: "New", color: "#10b981" },
-  changed: { label: "Changed", color: "#5b5fef" },
+  changed: { label: "Changed", color: "#8b74e8" },
   fixed: { label: "Fix", color: "#f59e0b" },
   removed: { label: "Removed", color: "#ef4444" },
 };
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: "1.3.0",
+    date: "2026-07-16",
+    type: "minor",
+    changes: [
+      { kind: "added", text: "Importación XML con dropzone, polling de estado y reporte de creados/rechazados." },
+    ],
+  },
+  {
+    version: "1.2.0",
+    date: "2026-07-16",
+    type: "minor",
+    changes: [
+      { kind: "added", text: "Banco de ejercicios: tabla con filtros, publicar/archivar, reordenar y preview con KaTeX." },
+    ],
+  },
+  {
+    version: "1.1.0",
+    date: "2026-07-16",
+    type: "minor",
+    changes: [
+      { kind: "added", text: "Rol **auxiliary** y gestor de contenidos (`/content`) con dashboard mock/real conmutable vía `NEXT_PUBLIC_USE_MOCK_API`." },
+    ],
+  },
   {
     version: "1.0.0",
     date: "2026-07-13",
