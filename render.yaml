@@ -28,7 +28,7 @@ services:
       - key: LTI_SHARED_SECRET
         value: hackaton_render_lti_secret
       - key: LTI_LAUNCH_URL
-        value: https://hackaton-api.onrender.com/lti/launch
+        value: https://hackaton-api-3cny.onrender.com/lti/launch
       - key: LTI_DEV_SKIP_VALIDATION
         value: "true"
       - key: DB_HOST
@@ -57,13 +57,13 @@ services:
     runtime: static
     rootDir: apps/mobile
     branch: master
-    buildCommand: HUSKY=0 CI=1 pnpm install && EXPO_PUBLIC_APP_ENV=production EXPO_PUBLIC_API_URL=https://hackaton-api.onrender.com EXPO_PUBLIC_VAR_NUMBER=10 EXPO_PUBLIC_VAR_BOOL=true pnpm exec expo export --platform web
+    buildCommand: HUSKY=0 CI=1 pnpm install && EXPO_PUBLIC_APP_ENV=production EXPO_PUBLIC_API_URL=https://hackaton-api-3cny.onrender.com EXPO_PUBLIC_VAR_NUMBER=10 EXPO_PUBLIC_VAR_BOOL=true pnpm exec expo export --platform web
     staticPublishPath: dist
     envVars:
       - key: EXPO_PUBLIC_APP_ENV
         value: production
       - key: EXPO_PUBLIC_API_URL
-        value: https://hackaton-api.onrender.com
+        value: https://hackaton-api-3cny.onrender.com
       - key: EXPO_PUBLIC_VAR_NUMBER
         value: "10"
       - key: EXPO_PUBLIC_VAR_BOOL
