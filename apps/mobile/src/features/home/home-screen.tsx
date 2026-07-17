@@ -197,6 +197,10 @@ export function HomeScreen() {
     router.push(`/(app)/course/${DEFAULT_COURSE_ID}` as never);
   };
 
+  const openPractice = () => {
+    router.push('/(app)/practice' as never);
+  };
+
   return (
     <WebShell>
       <SafeAreaView className="flex-1 bg-primary-50" edges={['top']}>
@@ -248,15 +252,15 @@ export function HomeScreen() {
                       Practice mode
                     </Text>
                     <Text className="font-lato mt-2 text-sm text-slate-gray">
-                      Pick a subject from your plan and solve step-by-step exercises
-                      with instant feedback.
+                      5 ejercicios de mates quemados: ecuaciones, fracciones, área,
+                      porcentajes y Pitágoras. Validación local, sin IA.
                     </Text>
                     <Pressable
                       testID="start-practice"
-                      onPress={openCourse}
+                      onPress={openPractice}
                       className="mt-5 items-center rounded-full bg-primary py-3"
                     >
-                      <Text className="font-lato-bold text-white">Start practicing</Text>
+                      <Text className="font-lato-bold text-white">Ver ejercicios</Text>
                     </Pressable>
                   </View>
                 )}

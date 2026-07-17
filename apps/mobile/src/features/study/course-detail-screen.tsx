@@ -124,9 +124,18 @@ export function CourseDetailScreen() {
           </View>
 
           <Pressable
+            testID="start-practice-from-course"
+            onPress={() => router.push('/(app)/practice' as never)}
+            className="mt-6 items-center rounded-full bg-primary py-4"
+          >
+            <Text className="font-lato-bold text-base text-white">
+              Practicar ejercicios de mates
+            </Text>
+          </Pressable>
+          <Pressable
             testID="start-course"
             onPress={() => router.push('/(app)/(tabs)/assistant' as never)}
-            className="mt-6 items-center rounded-full bg-charcoal-800 py-4"
+            className="mt-3 items-center rounded-full bg-charcoal-800 py-4"
           >
             <Text className="font-lato-bold text-base text-white">
               Start with AI Owl
