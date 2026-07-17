@@ -1,81 +1,61 @@
 /**
- * Color tokens for the template — a neutral blue palette. Customize for your brand.
- *
- * Palette:
- *   brand-primary    #2F5DED  (blue)     → primary CTA, active, brand
- *   navy             #14224A  (dark)     → bottom nav container
- *   light-blue       #EAF0FF  (soft)     → price/rating pill backgrounds, soft accents
- *   surface-base     #F4F6F9  (cool)     → app background
- *   surface-card     #FFFFFF             → cards / raised surfaces
- *   text-primary     #1C1E23             → primary text
- *   text-secondary   #74798A             → secondary text
- *   success          #219653
- *   danger           #EB5757
- *
- * Token NAMES are kept stable so the new identity cascades through existing
- * screens that already consume `primary`, `background`, `secondary`, `accent`,
- * `textPrimary`, `border`, etc. Only the hex values changed.
- *
- * Do NOT hardcode hex in screens — always consume semantic tokens (see
- * apps/mobile/DESIGN.md). Update docs/design/* before changing identity here.
+ * Color tokens — PAAG styleguide (lavanda + ámbar).
+ * Keep token NAMES stable; screens consume semantic tokens, not raw hex.
  */
 module.exports = {
   white: '#ffffff',
   black: '#000000',
 
-  /* Brand primary (blue #2F5DED) */
+  /* Brand primary (lavanda #B9A5F5) */
   primary: {
-    50: '#eaf0ff',
-    100: '#cddaff',
-    200: '#9db6fb',
-    300: '#6f92f6',
-    400: '#4c73ee',
-    500: '#2f5ded',
-    600: '#2748c2',
-    700: '#1f3899',
-    800: '#182a70',
-    900: '#14224a',
+    50: '#ede8fb',
+    100: '#e0d7fa',
+    200: '#d8ccf9',
+    300: '#b9a5f5',
+    400: '#a08eef',
+    500: '#8b74e8',
+    600: '#7460d4',
+    700: '#5c4ab3',
+    800: '#46378a',
+    900: '#1f2430',
   },
-  primaryStrong: '#2748c2',
-  brand: '#2f5ded',
-  brandSoft: '#eaf0ff',
+  primaryStrong: '#8b74e8',
+  brand: '#b9a5f5',
+  brandSoft: '#ede8fb',
 
-  /* AI accent — brand-led (blue). AI surfaces may use a subtle
-     lift over the brand instead of a separate hue. */
-  aiAccent: '#2f5ded',
-  aiAccentSoft: '#eaf0ff',
+  /* AI / highlight — ámbar */
+  aiAccent: '#f5a623',
+  aiAccentSoft: '#fdf0da',
 
-  /* Brand secondary (navy #14224A) */
-  secondary: '#14224a',
-  secondarySoft: '#eaf0ff',
+  secondary: '#1f2430',
+  secondarySoft: '#ede8fb',
 
-  /* Brand accent — folded into brand blue */
-  accent: '#2f5ded',
-  accentSoft: '#eaf0ff',
+  accent: '#f5a623',
+  accentSoft: '#fdf0da',
 
   /* Surfaces / background */
   surface: '#ffffff',
   surfaceCard: '#ffffff',
   surfaceRaised: '#ffffff',
-  surfaceAlt: '#f4f6f9',
-  softSurface: '#f4f6f9',
-  background: '#f4f6f9',
-  surfaceOverlay: 'rgba(28,30,35,0.48)',
+  surfaceAlt: '#f5f6fa',
+  softSurface: '#f5f6fa',
+  background: '#f5f6fa',
+  surfaceOverlay: 'rgba(31,36,48,0.48)',
 
   /* Text */
-  textPrimary: '#1c1e23',
-  textSecondary: '#74798a',
-  textMuted: '#74798a',
-  foreground: '#1c1e23',
-  slateGray: '#74798a',
+  textPrimary: '#1f2430',
+  textSecondary: '#6b7280',
+  textMuted: '#6b7280',
+  foreground: '#1f2430',
+  slateGray: '#6b7280',
 
   /* Borders / dividers */
-  border: '#e5e7eb',
-  borderSubtle: '#e5e7eb',
+  border: '#eceef4',
+  borderSubtle: '#eceef4',
 
-  /* Feedback (single semantic values) */
-  info: '#2f5ded',
-  infoSoft: '#eaf0ff',
+  /* Feedback */
+  info: '#8b74e8',
+  infoSoft: '#ede8fb',
 
   charcoal: {
     50: '#F2F2F2',
