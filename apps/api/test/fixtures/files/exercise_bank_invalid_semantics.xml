@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exerciseBank version="1.0">
+  <exercise topicSlug="linear-equations" difficulty="easy">
+    <title>Valid exercise in a mixed bank</title>
+    <statement>This exercise remains available for import.</statement>
+    <steps>
+      <step phase="procedure" answerType="numeric">
+        <prompt>Enter a result.</prompt>
+        <correctAnswer value="2"/>
+      </step>
+    </steps>
+  </exercise>
+  <exercise topicSlug="missing-topic" difficulty="easy">
+    <title>Unknown topic</title>
+    <statement>This exercise references a missing topic.</statement>
+    <steps>
+      <step phase="procedure" answerType="numeric">
+        <prompt>Enter a result.</prompt>
+        <correctAnswer value="1"/>
+      </step>
+    </steps>
+  </exercise>
+  <exercise topicSlug="linear-equations" difficulty="medium">
+    <title>No correct choice</title>
+    <statement>No option is marked as correct.</statement>
+    <steps>
+      <step phase="identification" answerType="single_choice">
+        <prompt>Choose one.</prompt>
+        <options>
+          <option id="a">Option A</option>
+          <option id="b">Option B</option>
+        </options>
+      </step>
+    </steps>
+  </exercise>
+  <exercise topicSlug="linear-equations" difficulty="hard">
+    <title>Invalid typed answers</title>
+    <statement>The answer attributes and variables are inconsistent.</statement>
+    <variables>
+      <variable name="x" min="-1" max="1"/>
+    </variables>
+    <steps>
+      <step phase="planning" answerType="numeric">
+        <prompt>Enter a number.</prompt>
+        <correctAnswer expression="x+1"/>
+      </step>
+      <step phase="procedure" answerType="expression">
+        <prompt>Enter an expression.</prompt>
+        <correctAnswer expression="x+y"/>
+      </step>
+    </steps>
+  </exercise>
+</exerciseBank>

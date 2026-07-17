@@ -30,7 +30,7 @@ class Topic < ApplicationRecord
   include Discardable
 
   belongs_to :subject
-  has_many :exercises, dependent: :destroy
+  has_many :exercises, -> { order(:position) }, dependent: :destroy, inverse_of: :topic
 
   before_validation :generate_slug, if: -> { slug.blank? && name.present? }
 

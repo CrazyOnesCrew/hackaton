@@ -51,6 +51,21 @@ class ExerciseTest < ActiveSupport::TestCase
     assert exercise.update(status: "published")
   end
 
+  test "assigns positions sequentially within each topic" do
+    topic = create_topic
+    first = create_exercise(topic:)
+    second = create_exercise(topic:)
+    other_topic_exercise = create_exercise(topic: create_topic)
+
+    assert_equal 1, first.position
+    assert_equal 2, second.position
+    assert_equal 1, other_topic_exercise.position
+
+    second.position = first.position
+    assert_not second.valid?
+    assert second.errors[:position].any?
+  end
+
   test "destroys steps and supports discard scopes" do
     exercise = create_exercise
     step = create_step(exercise:)

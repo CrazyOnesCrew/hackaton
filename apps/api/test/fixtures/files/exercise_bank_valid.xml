@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exerciseBank version="1.0">
+  <exercise topicSlug="linear-equations" difficulty="medium">
+    <title>Linear equation practice</title>
+    <statement>Solve $2x + 1 = 5$ step by step.</statement>
+    <variables>
+      <variable name="x" min="-10" max="10"/>
+    </variables>
+    <steps>
+      <step phase="identification" answerType="single_choice" maxScore="5">
+        <prompt>What kind of equation is this?</prompt>
+        <options>
+          <option id="linear" correct="true">Linear</option>
+          <option id="quadratic">Quadratic</option>
+        </options>
+        <hints>
+          <hint penalty="1">Look at the largest exponent.</hint>
+        </hints>
+      </step>
+      <step phase="planning" answerType="multi_choice">
+        <prompt>Which operations can preserve equality?</prompt>
+        <options>
+          <option id="add" correct="true">Add the same value to both sides</option>
+          <option id="multiply" correct="1">Multiply both sides by the same nonzero value</option>
+          <option id="one-side">Change one side only</option>
+        </options>
+      </step>
+      <step phase="tools" answerType="numeric" tolerance="0.01">
+        <prompt>What is the constant after subtracting one?</prompt>
+        <correctAnswer value="4"/>
+      </step>
+      <step phase="procedure" answerType="expression" tolerance="0.001" maxScore="15">
+        <prompt>Write an expression equivalent to the left side.</prompt>
+        <correctAnswer expression="2*x+1"/>
+        <hints>
+          <hint>Keep the coefficient attached to x.</hint>
+        </hints>
+      </step>
+    </steps>
+  </exercise>
+  <exercise topicSlug="linear-equations" difficulty="easy">
+    <title>Numeric warm-up</title>
+    <statement>Compute $3 + 1$.</statement>
+    <steps>
+      <step phase="procedure" answerType="numeric">
+        <prompt>Enter the result.</prompt>
+        <correctAnswer value="4"/>
+      </step>
+    </steps>
+  </exercise>
+</exerciseBank>

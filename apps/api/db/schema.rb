@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_16_000002) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_16_000003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_16_000002) do
     t.datetime "deleted_at"
     t.integer "difficulty", null: false
     t.bigint "exercise_import_id"
+    t.integer "position", null: false
     t.integer "source", default: 0, null: false
     t.text "statement", null: false
     t.integer "status", default: 0, null: false
@@ -62,7 +63,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_16_000002) do
     t.index ["deleted_at"], name: "index_exercises_on_deleted_at"
     t.index ["exercise_import_id"], name: "index_exercises_on_exercise_import_id"
     t.index ["topic_id", "difficulty", "status"], name: "index_exercises_on_topic_id_and_difficulty_and_status"
+    t.index ["topic_id", "position"], name: "index_exercises_on_topic_id_and_position", unique: true
     t.index ["topic_id"], name: "index_exercises_on_topic_id"
+    t.check_constraint "\"position\" > 0", name: "exercises_position_positive"
     t.check_constraint "difficulty = ANY (ARRAY[0, 1, 2])", name: "exercises_difficulty_valid"
     t.check_constraint "source = ANY (ARRAY[0, 1])", name: "exercises_source_valid"
     t.check_constraint "status = ANY (ARRAY[0, 1, 2])", name: "exercises_status_valid"

@@ -19,6 +19,11 @@ Rails.application.routes.draw do
       resources :subjects, only: [ :index ]
       get "subjects/:slug/topics", to: "topics#index"
       resources :exercises, only: [ :show ]
+
+      namespace :management do
+        resources :exercises, only: %i[index show create update destroy]
+        patch "topics/:id/reorder", to: "topics#reorder"
+      end
     end
   end
 end

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE exerciseBank [
+  <!ENTITY secret SYSTEM "file:///etc/passwd">
+]>
+<exerciseBank version="1.0">
+  <exercise topicSlug="linear-equations" difficulty="easy">
+    <title>&secret;</title>
+    <statement>External entities must never be resolved.</statement>
+    <steps>
+      <step phase="procedure" answerType="numeric">
+        <prompt>Enter a result.</prompt>
+        <correctAnswer value="1"/>
+      </step>
+    </steps>
+  </exercise>
+</exerciseBank>

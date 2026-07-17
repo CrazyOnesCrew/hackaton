@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Runtime copy of specs/001-paag/contracts/exercise-bank.xsd.
+  The contract file is the source of truth; keep this schema structurally equivalent when it changes.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:element name="exerciseBank">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="exercise" type="ExerciseType" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:string" use="required" fixed="1.0"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="ExerciseType">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string"/>
+      <!-- Markdown + LaTeX inline con $...$ -->
+      <xs:element name="statement" type="xs:string"/>
+      <xs:element name="variables" type="VariablesType" minOccurs="0"/>
+      <xs:element name="steps">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="step" type="StepType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="topicSlug" type="xs:string" use="required"/>
+    <xs:attribute name="difficulty" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="easy"/>
+          <xs:enumeration value="medium"/>
+          <xs:enumeration value="hard"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="VariablesType">
+    <xs:sequence>
+      <xs:element name="variable" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="name" type="xs:string" use="required"/>
+          <xs:attribute name="min" type="xs:decimal" use="required"/>
+          <xs:attribute name="max" type="xs:decimal" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StepType">
+    <xs:sequence>
+      <xs:element name="prompt" type="xs:string"/>
+      <!-- options: requerido cuando answerType es single_choice/multi_choice -->
+      <xs:element name="options" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="option" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute name="id" type="xs:string" use="required"/>
+                    <xs:attribute name="correct" type="xs:boolean" default="false"/>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!-- correctAnswer: requerido cuando answerType es numeric (value) o expression (expression) -->
+      <xs:element name="correctAnswer" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="value" type="xs:decimal"/>
+          <xs:attribute name="expression" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="hints" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="hint" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute name="penalty" type="xs:positiveInteger" default="2"/>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="phase" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="identification"/>
+          <xs:enumeration value="planning"/>
+          <xs:enumeration value="tools"/>
+          <xs:enumeration value="procedure"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="answerType" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="single_choice"/>
+          <xs:enumeration value="multi_choice"/>
+          <xs:enumeration value="numeric"/>
+          <xs:enumeration value="expression"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="tolerance" type="xs:decimal" default="0.001"/>
+    <xs:attribute name="maxScore" type="xs:positiveInteger" default="10"/>
+  </xs:complexType>
+
+</xs:schema>

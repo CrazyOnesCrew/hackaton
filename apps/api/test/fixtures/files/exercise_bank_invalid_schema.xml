@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exerciseBank version="2.0">
+  <exercise topicSlug="linear-equations" difficulty="impossible">
+    <title>Broken schema exercise</title>
+    <steps>
+      <step phase="unknown" answerType="numeric">
+        <prompt>Enter a result.</prompt>
+        <correctAnswer value="1"/>
+      </step>
+    </steps>
+  </exercise>
+</exerciseBank>

@@ -45,9 +45,14 @@ class Exercise < ApplicationRecord
   enum :status, { draft: 0, published: 1, archived: 2 }, default: :draft, validate: true
   enum :source, { manual: 0, xml_import: 1 }, default: :manual, validate: true
 
+  before_validation :assign_position, on: :create
+
   scope :by_difficulty, ->(difficulty) { where(difficulty:) }
 
   validates :title, :statement, presence: true
+  validates :position,
+    numericality: { only_integer: true, greater_than: 0 },
+    uniqueness: { scope: :topic_id }
   validate :variables_must_have_valid_shape
   validate :must_be_publishable, if: :publishing?
 
@@ -57,6 +62,12 @@ class Exercise < ApplicationRecord
   end
 
   private
+
+  def assign_position
+    return if position.present? || topic_id.blank?
+
+    self.position = Exercise.where(topic_id:).maximum(:position).to_i + 1
+  end
 
   def publishing?
     will_save_change_to_status? && published?

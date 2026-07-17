@@ -51,6 +51,7 @@ erDiagram
 | source | integer enum, default manual | `manual: 0, xml_import: 1` |
 | exercise_import_id | FK nullable | trazabilidad del import |
 | variables | jsonb, default `[]` | `[{"name":"x","domain":{"min":-10,"max":10}}]` para muestreo |
+| position | integer, null: false | único por topic; define el orden en el gestor |
 
 ### `exercise_steps`
 | Columna | Tipo | Notas |
