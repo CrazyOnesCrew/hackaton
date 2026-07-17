@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ImportsPanel } from "./ImportsPanel";
@@ -144,5 +144,52 @@ describe("ImportsPanel", () => {
       expect(screen.getByRole("alert").textContent).toMatch(/no valida contra el XSD/i);
     });
     expect(screen.queryByText("malo.xml")).toBeNull();
+  });
+
+  it("renders help card with XSD and example XML download links", () => {
+    render(<ImportsPanel initialJobs={[]} />);
+    expect(screen.getByText("Ayuda de importación")).toBeTruthy();
+    const xsd = screen.getByRole("link", { name: /Descargar exercise-bank\.xsd/i });
+    const example = screen.getByRole("link", { name: /Descargar XML de ejemplo/i });
+    expect(xsd.getAttribute("href")).toMatch(/\/examples\/exercise-bank\.xsd$/);
+    expect(example.getAttribute("href")).toMatch(/\/examples\/exercise-bank-example\.xml$/);
+  });
+
+  it("rejects non-XML files client-side without calling fetch", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const { container } = render(<ImportsPanel initialJobs={[]} />);
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const file = new File(["not xml"], "notas.csv", { type: "text/csv" });
+    // Bypass browser `accept` filtering so we exercise the client-side guard.
+    fireEvent.change(input, { target: { files: [file] } });
+
+    await waitFor(() => {
+      expect(screen.getByRole("alert").textContent).toMatch(/extensión \.xml/i);
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects files larger than 5 MB client-side without calling fetch", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const user = userEvent.setup();
+    const { container } = render(<ImportsPanel initialJobs={[]} />);
+    const input = container.querySelector('input[type="file"]') as HTMLInputElement;
+    const big = new File([new Uint8Array(5 * 1024 * 1024 + 1)], "grande.xml", {
+      type: "application/xml",
+    });
+    await user.upload(input, big);
+
+    await waitFor(() => {
+      expect(screen.getByRole("alert").textContent).toMatch(/5 MB/i);
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("shows empty history without inventing rows", () => {
+    render(<ImportsPanel initialJobs={[]} />);
+    expect(screen.getByText("Historial")).toBeTruthy();
+    expect(screen.queryByText("derivadas-basicas.xml")).toBeNull();
   });
 });
