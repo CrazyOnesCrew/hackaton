@@ -2,7 +2,7 @@
 
 **Actualizado**: 2026-07-16  
 **Repo**: https://github.com/CrazyOnesCrew/hackaton  
-**Base verificada**: `origin/master` @ `16afd25` (`git log origin/master --oneline -30`)
+**Base verificada**: `origin/master` @ `e65b4ac` (`git log origin/master --oneline -30`); PAAG-304 @ `16afd25`
 
 Este archivo es el **reporte operativo** para no omitir gaps de QA ni tickets a medias al decir “Dev C listo”.
 
