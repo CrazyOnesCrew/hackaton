@@ -82,4 +82,33 @@ describe("GradesExport", () => {
       expect(clickSpy).toHaveBeenCalled();
     });
   });
+
+  it("renders contingency help card for Moodle CSV import", () => {
+    render(<GradesExport contexts={contexts} />);
+    expect(screen.getByText("¿Cuándo usar esta exportación?")).toBeTruthy();
+    expect(
+      screen.getByText(/grade passback LTI.*Moodle/i),
+    ).toBeTruthy();
+  });
+
+  it("surfaces BFF error when CSV generation fails", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        return new Response(
+          JSON.stringify({ error: { message: "Contexto LTI no encontrado." } }),
+          { status: 404, headers: { "Content-Type": "application/json" } },
+        );
+      }),
+    );
+
+    const user = userEvent.setup();
+    render(<GradesExport contexts={contexts} />);
+    await user.click(screen.getByText("Curso Álgebra 2026"));
+    await user.click(screen.getByRole("button", { name: "Descargar CSV" }));
+
+    await waitFor(() => {
+      expect(screen.getByRole("alert").textContent).toMatch(/Contexto LTI no encontrado/i);
+    });
+  });
 });
