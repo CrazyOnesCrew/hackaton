@@ -33,6 +33,17 @@ export const CHANGE_KIND_META: Record<ChangeKind, { label: string; color: string
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "1.4.0",
+    date: "2026-07-16",
+    type: "minor",
+    changes: [
+      {
+        kind: "added",
+        text: "Exportación CSV de notas por contexto LTI (`/content/grades`) con mock/BFF.",
+      },
+    ],
+  },
+  {
     version: "1.3.1",
     date: "2026-07-16",
     type: "patch",
