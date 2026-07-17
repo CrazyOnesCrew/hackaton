@@ -14,6 +14,11 @@ Rails.application.routes.draw do
 
       # Authenticated example resource: the current user's profile.
       resource :profile, only: [ :show, :update ]
+
+      # Public, read-only access to published content.
+      resources :subjects, only: [ :index ]
+      get "subjects/:slug/topics", to: "topics#index"
+      resources :exercises, only: [ :show ]
     end
   end
 end
