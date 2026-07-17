@@ -15,7 +15,7 @@ module Lti
     private
 
     def valid_launch?
-      return true if Rails.env.development? && ENV["LTI_DEV_SKIP_VALIDATION"] == "true"
+      return true if ENV["LTI_DEV_SKIP_VALIDATION"] == "true"
 
       consumer_key = params["oauth_consumer_key"].to_s
       expected_key = ENV.fetch("LTI_CONSUMER_KEY", "hackaton_local")
